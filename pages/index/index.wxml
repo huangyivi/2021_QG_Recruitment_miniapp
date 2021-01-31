@@ -11,10 +11,10 @@
       <img src="" alt=""/>
       <view>了解我们</view>
     </view>
-    <view class="btn {{isChecked==2?'btn-checked':''}}" >
+    <navigator url="/pages/interview/interview" class="btn {{isChecked==2?'btn-checked':''}}" >
       <img src="" alt=""/>
       <view>面试</view>
-    </view>
+    </navigator>
     
   </view>
 </view>

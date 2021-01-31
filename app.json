@@ -1,7 +1,8 @@
 {
   "pages":[
+    "pages/index/index",
     "pages/enroll/enroll",
-    "pages/index/index"
+    "pages/interview/interview"
   ],
   "window":{
     "backgroundTextStyle":"light",

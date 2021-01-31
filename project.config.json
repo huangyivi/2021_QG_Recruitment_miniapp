@@ -41,7 +41,7 @@
   },
   "compileType": "miniprogram",
   "libVersion": "2.15.0",
-  "appid": "wx931621df7e90d78f",
+  "appid": "wx0e8ee2a1d10a03c6",
   "projectname": "2021QGRecruitment",
   "debugOptions": {
     "hidedInDevtools": []
@@ -49,16 +49,10 @@
   "scripts": {},
   "isGameTourist": false,
   "condition": {
-    "search": {
-      "list": []
-    },
-    "conversation": {
+    "plugin": {
       "list": []
     },
     "game": {
-      "list": []
-    },
-    "plugin": {
       "list": []
     },
     "gamePlugin": {
