@@ -9,6 +9,16 @@
   align-items: center;
 }
 
+.rtn{
+  padding-top: 4vh;
+  width: 80%;
+  height: 80rpx;
+}
+.rtn img{
+  width: 20px;
+  height: 20px;
+}
+
 .enroll-title {
   font-size: 20px;
   font-family: Source Han Sans CN;
@@ -28,19 +38,14 @@
   height: 150rpx;
 }
 
-.infos>text {
+.infos text {
   font-size: 18px;
   font-family: Source Han Sans CN;
   font-weight: 400;
   line-height: 34px;
   color: #B6B6B6;
 }
-
-.reason {
-  height: 200rpx;
-}
-
-textarea {
+.infos textarea {
   height: 100rpx;
   width: 600rpx;
   border-bottom: 1px #B4B4B4 solid;
@@ -51,7 +56,7 @@ textarea {
   overflow: hidden;
 }
 
-.inputs {
+.infos .inputs {
   width: 100%;
   border-bottom: 1px #B4B4B4 solid;
   font-size: 18px;
@@ -60,6 +65,55 @@ textarea {
   line-height: 24px;
   color: #808080;
 }
+
+.infos-err {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  margin: 20rpx;
+  padding: 10rpx;
+  width: 80%;
+  height: 150rpx;
+}
+
+.infos-err text {
+  font-size: 18px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  line-height: 34px;
+  color: red;
+}
+.infos-err textarea {
+  height: 100rpx;
+  width: 600rpx;
+  border-bottom: 2px red solid;
+  font-size: 18px;
+  font-family: Source Han Sans CN;
+  font-weight: 500;
+  color: red;
+  overflow: hidden;
+}
+
+.infos-err .inputs {
+  width: 100%;
+  border-bottom: 2px red solid;
+  font-size: 18px;
+  font-family: Source Han Sans CN;
+  font-weight: 500;
+  line-height: 24px;
+  color: red;
+}
+
+.reason {
+  height: 200rpx;
+}
+
+.focus{
+  border-bottom: 2px #8366FC solid !important;
+}
+
+
 
 .unfilled {
   width: 500rpx !important;

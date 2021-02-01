@@ -1,49 +1,55 @@
 <view class="enroll-container">
+  <view class="rtn">
+    <mp-icon icon="back" color="black" size="{{18}}"></mp-icon>
+  </view>
   <text class="enroll-title">报名QG工作室</text>
-  <view class="infos">
-    <text class="">报名</text>
-    <input class="inputs" type="text" />
+  <view class="{{isNull[0] ? 'infos-err' : 'infos'}}">
+    <text class="">姓名</text>
+    <input class="inputs {{isFocus[0]? '.focus' : ''}}" id="0" type="text" value="{{myName}}" placeholder="{{isNull[0] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[0]? 'red' : ''}}" bindinput="inputChange" bindblur="isNull" catchtap="toNormal"/>
   </view>
-  <view class="infos">
+  <view class="{{isNull[1] ? 'infos-err' : 'infos'}}">
     <text class="">学号</text>
-    <input class="inputs" type="number" />
+    <input class="inputs {{isFocus[1]? '.focus' : ''}}" id="1" type="number" value="{{myId}}" placeholder="{{isNull[1] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[1]? 'red' : ''}}" bindinput="inputChange" bindblur="isNull" catchtap="toNormal"/>
   </view>
-  <view class="infos">
+  <view class="{{isNull[2] ? 'infos-err' : 'infos'}}">
     <text class="">绩点</text>
-    <input class="inputs" type="number" />
+    <input class="inputs {{isFocus[2]? '.focus' : ''}}" id="2" type="number" value="{{myGradePoint}}" placeholder="{{isNull[2] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[2]? 'red' : ''}}" bindinput="inputChange" bindblur="isNull" catchtap="toNormal"/>
   </view>
   <view class="infos">
     <text class="">学院</text>
-    <picker class="inputs" range="{{colleges}}">{{myCollege}}</picker>
+    <picker class="inputs" range="{{colleges}}" bindchange="collegeChange">{{colleges[collegeIndex]}}</picker>
   </view>
   <view class="infos">
     <text class="">专业班级</text>
-    <picker class="inputs" range="{{majors}}">{{myMajor}}</picker>
+    <picker class="inputs" range="{{majors}}" bindchange="majorChange">{{majors[majorIndex]}}</picker>
   </view>
-  <view class="infos">
-    <text class="">电话号码</text>
-    <input  class="inputs" type="number" />
+  <view class="{{isNull[3] ? 'infos-err' : 'infos'}}">
+    <text class="">电话</text>
+    <input class="inputs {{isFocus[3]? '.focus' : ''}}" id="3" type="number" value="{{myPhone}}" placeholder="{{isNull[3] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[3]? 'red' : ''}}" bindinput="inputChange" bindblur="isNull" catchtap="toNormal"/>
   </view>
-  <view class="infos">
+  <view class="{{isNull[4] ? 'infos-err' : 'infos'}}">
     <text class="">QQ</text>
-    <input class="inputs" type="number" />
+    <input class="inputs {{isFocus[4]? '.focus' : ''}}" id="4" type="number" value="{{myQQ}}" placeholder="{{isNull[4] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[4]? 'red' : ''}}" bindinput="inputChange" bindblur="isNull" catchtap="toNormal"/>
   </view>
-  <view class="infos reason">
+  <view class="{{isNull[5] ? 'infos-err' : 'infos'}} reason">
     <text class="">是否参加其他学生科技团队，社团参与情况说明，是否任职团委</text>
     <view>
-      <textarea maxlength="150" />
+      <textarea class="{{isFocus[5]? '.focus' : ''}}" id="5" maxlength="150" value="{{mySituation}}" bindinput="inputChange" bindblur="isNull" catchtap="toNormal"/>
     </view>
   </view>
   <view class="infos">
     <text class="">想加入工作室的方向</text>
-    <picker class="inputs" range="{{directions}}">{{myDirection}}</picker>
+    <picker class="inputs" range="{{directions}}" bindchange="directionChange">{{directions[directionIndex]}}</picker>
   </view>
-  <view class="infos reason">
+  <view class="{{isNull[6] ? 'infos-err' : 'infos'}} reason">
     <text class="">个人简介</text>
     <view>
-      <textarea maxlength="150" />
+      <textarea class="{{isFocus[6]? '.focus' : ''}}" id="6" maxlength="150" value="{{myIntroduction}}" bindinput="inputChange"  bindblur="isNull" catchtap="toNormal"/>
     </view>
   </view>
-  <button class="{{isFilled?'filled' : 'unfilled'}}">{{isFilled?'我想加入QG工作室！':'请填写完相关信息'}}</button>
+  <button 
+    class="{{isFilled?'filled' : 'unfilled'}}"
+    catchtap="checkForm"
+  >{{isFilled?'我想加入QG工作室！':'请填写完相关信息'}}</button>
 
 </view>

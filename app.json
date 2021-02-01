@@ -1,15 +1,17 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/calling/calling",
     "pages/enroll/enroll",
     "pages/interview/interview"
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#8366FC",
-    "navigationBarTitleText": "QG工作室",
-    "navigationBarTextStyle":"white"
+    "navigationStyle": "custom"
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "useExtendedLib": {
+    "weui" : true
+  }
 }
