@@ -1,0 +1,75 @@
+<view class="calling-container init">
+  <view class="rtn">
+    <mp-icon icon="back" color="white" size="{{18}}"></mp-icon>
+  </view>
+  <view class="pane">
+    <view class="situation">
+      <view class="itv-infos">
+        <view class="info-box">
+          <text class="info-title">组别</text>
+          <text class="info-ctn">前端</text>
+        </view>
+        <view class="info-box">
+          <text class="info-title">面试官序号</text>
+          <text class="info-ctn">---</text>
+        </view>
+        <view class="info-box">
+          <text class="info-title">面试教室</text>
+          <text class="info-ctn">---</text>
+        </view>
+
+        <view class="info-box">
+          <mp-icon icon="setting" color="grey" size="{{32}}" catchtap="toSetting"></mp-icon>
+
+        </view>
+
+      </view>
+      <view class="tip">还有5人正在准备面试</view>
+      <view class="queue" wx:for="{{interviewer}}" wx:item="item">
+        <view class="q-item">
+          <view class="q-box q-id">{{item.id}}</view>
+          <view class="q-box q-name">{{item.name}}</view>
+          <view class="q-box q-opt">
+            <mp-icon icon="more" color="#808080" size="{{36}}"></mp-icon>
+          </view>
+        </view>
+      </view>
+      <view class="pane-bottom">到底了哦~</view>
+    </view>
+
+    <view class="setting">
+      <view class="setting-header">
+        <button class="back-btn" catchtap="toSituation">
+          <mp-icon icon="previous" color="black" size="{{28}}"></mp-icon>
+          返回面试队列
+        </button>
+      </view>
+      <view class="tip"></view>
+      <view class="set-line">后台</view>
+      <view class="set-multi">
+        <text>组别</text>
+        <view class="set-groups">
+          <view class="group-box">1</view>
+          <view class="group-box">2</view>
+          <view class="group-box">3</view>
+          <view class="group-box">+</view>
+        </view>
+      </view>
+      <view class="set-line">
+        <text>教室</text>
+        <input type="text" value="教三-322" />
+      </view>
+      <view class="set-line">
+        <text>签到时间</text>
+        <input type="text" value="12月31号 12：00" />
+      </view>
+      <view class="edit">
+        <button class="edit-btn">确认修改</button>
+      </view>
+      <view class="pane-bottom">到底了哦~</view>
+
+    </view>
+  </view>
+
+  <button class="start-btn" wx:if="{{isStart}}">开始面试</button>
+</view>
