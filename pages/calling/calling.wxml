@@ -1,4 +1,4 @@
-<view class="calling-container init">
+<view class="calling-container" style="background-color : {{colors[bgc]}}">
   <view class="rtn">
     <mp-icon icon="back" color="white" size="{{18}}"></mp-icon>
   </view>
@@ -7,7 +7,7 @@
       <view class="itv-infos">
         <view class="info-box">
           <text class="info-title">组别</text>
-          <text class="info-ctn">前端</text>
+          <text class="info-ctn">---</text>
         </view>
         <view class="info-box">
           <text class="info-title">面试官序号</text>
@@ -20,9 +20,19 @@
 
         <view class="info-box">
           <mp-icon icon="setting" color="grey" size="{{32}}" catchtap="toSetting"></mp-icon>
-
         </view>
-
+      </view>
+      <view>
+        <view class="tip"></view>
+        <view>
+          <view class="q-item" catchtap="toRating">
+            <view class="q-box q-id" style="color : {{colors.g1}}">空闲</view>
+            <view class="q-box q-name"></view>
+            <view class="q-box q-opt">
+              <view class="q-group" style="background-color : {{colors.g1}}">1</view>
+            </view>
+          </view>
+        </view>
       </view>
       <view class="tip">还有5人正在准备面试</view>
       <view class="queue" wx:for="{{interviewer}}" wx:item="item">
@@ -45,14 +55,16 @@
         </button>
       </view>
       <view class="tip"></view>
-      <view class="set-line">后台</view>
+      <view class="set-line">
+        <picker range="{{directions}}" bindchange="changeDirection">{{directions[directionIndex]}}</picker>
+      </view>
       <view class="set-multi">
         <text>组别</text>
         <view class="set-groups">
-          <view class="group-box">1</view>
-          <view class="group-box">2</view>
-          <view class="group-box">3</view>
-          <view class="group-box">+</view>
+          <view class="group-box" style="border-color : {{colors.g1}};color : {{bgc == 'g1'? 'white' : '#808080'}};background-color : {{bgc == 'g1'? colors.g1 : 'white'}}" id="g1" catchtap="changeGroup">1</view>
+          <view class="group-box" style="border-color : {{colors.g2}};color : {{bgc == 'g2'? 'white' : '#808080'}};background-color : {{bgc == 'g2'? colors.g2 : 'white'}}" id="g2" catchtap="changeGroup">2</view>
+          <view class="group-box" style="border-color : {{colors.g3}};color : {{bgc == 'g3'? 'white' : '#808080'}};background-color : {{bgc == 'g3'? colors.g3 : 'white'}}" id="g3" catchtap="changeGroup">3</view>
+          <view class="group-box" style="border-color : {{colors.g4}};color : {{bgc == 'g4'? 'white' : '#808080'}};background-color : {{bgc == 'g4'? colors.g4 : 'white'}}" id="g4" catchtap="changeGroup">4</view>
         </view>
       </view>
       <view class="set-line">

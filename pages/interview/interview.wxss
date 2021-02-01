@@ -4,15 +4,23 @@
     display: flex;
     width: 100vw;
     height: 100vh;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background: #E9EBF8;
     overflow-y: auto;
 }
 
+.interview-rtn {
+    padding-top: 4vh;
+    width: 80%;
+    height: 10vh;
+  }
+  
+
 .interview-wrap {
     width: calc(100% - 96rpx);
-    height: calc(100% - 160rpx);
+    height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

@@ -1,0 +1,62 @@
+/* pages/more/more.wxss */
+.more-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background: #E9EBF8;
+  overflow-y: auto;
+}
+
+.more-rtn {
+  padding-top: 4vh;
+  width: 80%;
+  height: 10vh;
+}
+
+.more-pane {
+  width: 80%;
+  height: 80vh;
+  margin-bottom: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 80rpx;
+  background: #fff;
+  color: #808080;
+  border-radius: 16px;
+  box-shadow: 0px 3px 6px rgba(105, 48, 195, 0.16);
+  box-sizing: border-box;
+}
+
+
+.more-line {
+  width: 100%;
+  height: 200rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.more-line text {
+
+  font-size: 18px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  line-height: 34px;
+  color: #808080;
+  opacity: 1;
+}
+
+.more-line view {
+  
+font-size: 18px;
+font-family: Source Han Sans CN;
+font-weight: 500;
+line-height: 24px;
+color: #808080;
+opacity: 1;
+  border-bottom: 1px solid #B4B4B4;
+}

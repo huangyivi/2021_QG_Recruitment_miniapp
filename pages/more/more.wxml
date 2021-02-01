@@ -1,0 +1,23 @@
+<view class="more-container">
+  <view class="more-rtn">
+    <mp-icon icon="back" color="black" size="{{18}}" catchtap="back"></mp-icon>
+  </view>
+  <view class="more-pane">
+    <view class="more-line">
+      <text>姓名</text>
+      <view>曾伟斌</view>
+    </view>
+    <view class="more-line">
+      <text>学院专业</text>
+      <view>计算机学院 软件工程</view>
+    </view>
+    <view class="more-line">
+      <text>个人情况</text>
+      <view>未参与其他社团或者科技创新团队</view>
+    </view>
+    <view class="more-line">
+      <text>个人简介</text>
+      <view>擅长拿国奖</view>
+    </view>
+  </view>
+</view>
