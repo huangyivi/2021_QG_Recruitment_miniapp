@@ -24,7 +24,6 @@ const getDom = (dom)=>{
     })
 
   })
-
 }
 
 module.exports = {

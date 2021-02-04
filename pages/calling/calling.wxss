@@ -113,7 +113,7 @@ page {
   height: 40%;
   display: flex;
   align-items: center;
-  font-size: 24px;
+  font-size: 20px;
   font-family: Source Han Sans CN;
   font-weight: 500;
   color: #808080;
@@ -122,7 +122,7 @@ page {
 
 .q-id {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   border-right: 2px solid #EFEFEF;
 }
 
@@ -302,6 +302,20 @@ page {
   font-weight: 400;
   line-height: 24px;
   color: #B6B6B6;
+  opacity: 1;
+}
+.edit-btn-ready {
+  width: 224px;
+  height: 48px;
+  background: #8366FC;
+
+  border-radius: 16px;
+
+  font-size: 18px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  line-height: 24px;
+  color: #ffffff;
   opacity: 1;
 }
 
