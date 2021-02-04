@@ -1,11 +1,12 @@
 {
   "pages":[
+    "pages/login/login",
     "pages/calling/calling",
+    "pages/enroll/enroll",
     "pages/rating/rating",
     "pages/more/more",
     "pages/interview/interview",
-    "pages/index/index",
-    "pages/enroll/enroll"
+    "pages/index/index"
   ],
   "window":{
     "backgroundTextStyle":"light",

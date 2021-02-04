@@ -13,16 +13,16 @@
     </view>
     <view class="rating-line">
       <text>评分</text>
-      <input type="text" />
+      <input type="text" data-name="grade" bindinput="changeInput"/>
     </view>
     <view class="rating-line">
       <text>备注</text>
-      <input type="text" />
+      <input type="text" data-name="ps" bindinput="changeInput"/>
     </view>
     <view class="rating-ps">
       <text>特别关注</text>
       <view class="{{isFocus? 'rating-focus' : 'rating-unfocus'}}" catchtap="changeFocus" ></view>
     </view>
   </view>
-  <button class="start-btn">下一位</button>
+  <button class="{{isReady?'start-btn-ready':'start-btn'}}" catchtap="next">下一位</button>
 </view>

@@ -1,4 +1,4 @@
-<view class="calling-container" style="background-color : {{colors[bgc]}}">
+<view class="calling-container" style="background-color : {{colors[group]}}">
   <view class="rtn">
     <mp-icon icon="back" color="white" size="{{18}}"></mp-icon>
   </view>
@@ -7,15 +7,18 @@
       <view class="itv-infos">
         <view class="info-box">
           <text class="info-title">组别</text>
-          <text class="info-ctn">---</text>
+          <text class="info-ctn" wx:if="{{isStart}}">{{directions[directionIndex]}}</text>
+          <text class="info-ctn" wx:else>---</text>
         </view>
         <view class="info-box">
-          <text class="info-title">面试官序号</text>
-          <text class="info-ctn">---</text>
+          <text class="info-title">面试官</text>
+          <text class="info-ctn" wx:if="{{isStart}}">{{group}}</text>
+          <text class="info-ctn" wx:else>---</text>
         </view>
         <view class="info-box">
           <text class="info-title">面试教室</text>
-          <text class="info-ctn">---</text>
+          <text class="info-ctn" wx:if="{{isStart}}">{{classroom}}</text>
+          <text class="info-ctn" wx:else>---</text>
         </view>
 
         <view class="info-box">
@@ -26,21 +29,21 @@
         <view class="tip"></view>
         <view>
           <view class="q-item" catchtap="toRating">
-            <view class="q-box q-id" style="color : {{colors.g1}}">空闲</view>
+            <view class="q-box q-id" style="color : {{colors[1]}}">空闲</view>
             <view class="q-box q-name"></view>
             <view class="q-box q-opt">
-              <view class="q-group" style="background-color : {{colors.g1}}">1</view>
+              <view class="q-group" style="background-color : {{colors[1]}}">1</view>
             </view>
           </view>
         </view>
       </view>
-      <view class="tip">还有5人正在准备面试</view>
-      <view class="queue" wx:for="{{interviewer}}" wx:item="item">
+      <view class="tip">还有{{interviewer.length}}人正在准备面试</view>
+      <view class="queue" wx:for="{{interviewer}}" wx:item="item" wx:key="key" wx:for-index="idx">
         <view class="q-item">
           <view class="q-box q-id">{{item.id}}</view>
           <view class="q-box q-name">{{item.name}}</view>
-          <view class="q-box q-opt">
-            <mp-icon icon="more" color="#808080" size="{{36}}"></mp-icon>
+          <view class="q-box q-opt" data-idx="{{idx}}" catchtap="showMenu">
+            <mp-icon icon="more" color="#808080" size="{{36}}" ></mp-icon>
           </view>
         </view>
       </view>
@@ -61,25 +64,32 @@
       <view class="set-multi">
         <text>组别</text>
         <view class="set-groups">
-          <view class="group-box" style="border-color : {{colors.g1}};color : {{bgc == 'g1'? 'white' : '#808080'}};background-color : {{bgc == 'g1'? colors.g1 : 'white'}}" id="g1" catchtap="changeGroup">1</view>
-          <view class="group-box" style="border-color : {{colors.g2}};color : {{bgc == 'g2'? 'white' : '#808080'}};background-color : {{bgc == 'g2'? colors.g2 : 'white'}}" id="g2" catchtap="changeGroup">2</view>
-          <view class="group-box" style="border-color : {{colors.g3}};color : {{bgc == 'g3'? 'white' : '#808080'}};background-color : {{bgc == 'g3'? colors.g3 : 'white'}}" id="g3" catchtap="changeGroup">3</view>
-          <view class="group-box" style="border-color : {{colors.g4}};color : {{bgc == 'g4'? 'white' : '#808080'}};background-color : {{bgc == 'g4'? colors.g4 : 'white'}}" id="g4" catchtap="changeGroup">4</view>
+          <view class="group-box"
+            style="border-color : {{colors[1]}};color : {{group == '1'? 'white' : '#808080'}};background-color : {{group == '1'? colors[1] : 'white'}}"
+            data-group="1" catchtap="changeGroup">1</view>
+          <view class="group-box"
+            style="border-color : {{colors[2]}};color : {{group == '2'? 'white' : '#808080'}};background-color : {{group == '2'? colors[2] : 'white'}}"
+            data-group="2" catchtap="changeGroup">2</view>
+          <view class="group-box"
+            style="border-color : {{colors[3]}};color : {{group == '3'? 'white' : '#808080'}};background-color : {{group == '3'? colors[3] : 'white'}}"
+            data-group="3" catchtap="changeGroup">3</view>
+          <view class="group-box"
+            style="border-color : {{colors[4]}};color : {{group == '4'? 'white' : '#808080'}};background-color : {{group == '4'? colors[4] : 'white'}}"
+            data-group="4" catchtap="changeGroup">4</view>
         </view>
       </view>
       <view class="set-line">
         <text>教室</text>
-        <input type="text" value="教三-322" />
+        <input data-name="classroom" type="text" value="{{classroom}}" placeholder="示例：教三-322" placeholder-style="color: #cccccc" bindinput="changeInput"/>
       </view>
       <view class="set-line">
         <text>签到时间</text>
-        <input type="text" value="12月31号 12：00" />
+        <input data-name="time" type="text" value="{{time}}" placeholder="示例：2021-1-1 12:00" placeholder-style="color: #cccccc" bindinput="changeInput"/>
       </view>
       <view class="edit">
-        <button class="edit-btn">确认修改</button>
+        <button class="{{isReady?'edit-btn-ready' : 'edit-btn'}}" catchtap="changeQueue">确认修改</button>
       </view>
       <view class="pane-bottom">到底了哦~</view>
-
     </view>
   </view>
 

@@ -5,27 +5,45 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isFocus : false,
-    isReady : false
+    isFocus: false,
+    isReady: false,
+    grade : '',
+    ps : ''
   },
-  changeFocus(){
+  changeFocus() {
     this.data.isFocus = !this.data.isFocus;
     this.setData({
-      isFocus : this.data.isFocus
+      isFocus: this.data.isFocus
     })
   },
-  changeStatus(){
+  changeStatus() {
     this.data.isReady = !this.data.isReady;
     this.setData({
-      isReady : this.data.isReady
+      isReady: this.data.isReady
     })
   },
-  toMore(){
+  toMore() {
     wx.navigateTo({
       url: '../more/more',
     })
   },
-  back(){
+  back() {
     wx.navigateBack();
+  },
+  changeInput(e) {
+    let _this = this;
+    let dataset = e.currentTarget.dataset;
+    let value = e.detail.value;
+    let name = dataset.name;
+    this.data[name] = value;
+    this.setData({
+      name: _this.data[name]
+    });
+  },
+  next(){
+    this.data.isReady = !this.data.isReady;
+    this.setData({
+      isReady : this.data.isReady
+    })
   }
 })
