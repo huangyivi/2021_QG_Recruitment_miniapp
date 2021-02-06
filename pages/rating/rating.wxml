@@ -4,25 +4,28 @@
   </view>
   <view class="rating-pane">
     <view class="rating-head">
-      <text class="rating-id">0001</text>
-      <button class="rating-more" catchtap="toMore">查看更多</button>
+      <text class="rating-id">{{student[id]}}</text>
+      <button class="rating-more" catchtap="toMore" data-openId="{{student.openId}}">更多</button>
     </view>
     <view class="rating-info">
-      <text class="rating-name">曾伟斌</text>
-      <text class="{{isReady? 'rating-ready' : 'rating-pending'}}" catchtap="changeStatus">{{isReady? '已接受到通知': '等待中...'}}</text>
+      <text class="rating-name">{{student.name}}</text>
+      <text class="rating-ready">面试中...</text>
     </view>
     <view class="rating-line">
       <text>评分</text>
-      <input type="text" data-name="grade" bindinput="changeInput"/>
+      <input type="number" data-name="grade" bindinput="changeInput" bindblur="checkIsReady"/>
     </view>
     <view class="rating-line">
       <text>备注</text>
-      <input type="text" data-name="ps" bindinput="changeInput"/>
+      <input type="text" data-name="ps" bindinput="changeInput" bindblur="checkIsReady"/>
     </view>
     <view class="rating-ps">
       <text>特别关注</text>
       <view class="{{isFocus? 'rating-focus' : 'rating-unfocus'}}" catchtap="changeFocus" ></view>
     </view>
   </view>
-  <button class="{{isReady?'start-btn-ready':'start-btn'}}" catchtap="next">下一位</button>
+  <view class="btns">
+    <button class="{{isReady?'rate-btn-ready':'rate-btn'}}" catchtap="{{isReady?'comment' : ''}}">提交评价</button>
+    <button class="{{isCommented?'start-btn-ready':'start-btn'}}" catchtap="{{isCommented?'next' : ''}}">下一位</button>
+  </view>
 </view>

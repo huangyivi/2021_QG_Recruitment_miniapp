@@ -59,7 +59,19 @@
       "list": []
     },
     "miniprogram": {
-      "list": []
+      "list": [
+        {
+          "name": "pages/calling/calling",
+          "pathName": "pages/calling/calling",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/rating/rating",
+          "pathName": "pages/rating/rating",
+          "scene": null
+        }
+      ]
     }
   }
 }

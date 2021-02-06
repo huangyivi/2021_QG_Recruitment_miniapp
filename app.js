@@ -3,9 +3,12 @@ App({
   globalData: {
     userInfo: null,
     domain: 'http://39.98.41.126:30001/',
+    socket: 'ws://39.98.41.126:30001/ws',
     token: '',
     character: null,
-    code : null
+    code : null,
+    current : {},
+    watchStudent : {}
   },
   onLaunch() {
     // 登录

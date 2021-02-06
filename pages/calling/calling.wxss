@@ -67,7 +67,7 @@ page {
 
 .info-ctn {
 
-  font-size: 20px;
+  font-size: 16px;
   font-family: Source Han Sans CN;
   font-weight: 500;
   color: #808080;
@@ -280,6 +280,12 @@ page {
   opacity: 1;
 }
 
+.set-tip{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #8366FC;
+}
 
 
 .edit {

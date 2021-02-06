@@ -101,7 +101,7 @@
   background-color: #ADEECF;
   opacity: 1;
 }
-.rating-pending {
+/* .rating-pending {
   width: 218rpx;
   display: grid;
   place-content: center;
@@ -111,7 +111,7 @@
   line-height: 34px;
   color: #B6B6B6;
   opacity: 1;
-}
+} */
 
 .rating-line {
   width: 100%;
@@ -176,45 +176,84 @@
 }
 
 
-.start-btn {
+
+
+
+
+.btns{
   position: fixed;
   bottom: 5%;
+  width: 100%;
+  height: 82rpx;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
 
-
-  width: 176px;
-  height: 48px;
+.start-btn {
+  width: 240rpx !important;
+  height: 82rpx;
   background: #EFEFEF;
   box-shadow: 0px 3px 6px rgba(105, 48, 195, 0.16);
   opacity: 1;
   border-radius: 24px;
-
-
-  font-size: 20px;
+  display : grid;
+  place-content : center;
+  font-size: 18px;
   font-family: Source Han Sans CN;
   font-weight: 400;
-  line-height: 34px;
   color: #B6B6B6;
   opacity: 1;
 }
 
 .start-btn-ready {
-  position: fixed;
-  bottom: 5%;
-
-
-  width: 176px;
-  height: 48px;
+  width: 240rpx !important;
+  height: 82rpx;
   background: #8366FC;
   box-shadow: 0px 3px 6px rgba(105, 48, 195, 0.16);
   opacity: 1;
   border-radius: 24px;
   color: #ffffff;
 
-
-  font-size: 20px;
+  display : grid;
+  place-content : center;
+  font-size: 18px;
   font-family: Source Han Sans CN;
   font-weight: 400;
-  line-height: 34px;
+  color: #FFFFFF;
+  opacity: 1;
+}
+.rate-btn {
+  width: 240rpx !important;
+  height: 82rpx;
+  background: #EFEFEF;
+  box-shadow: 0px 3px 6px rgba(105, 48, 195, 0.16);
+  opacity: 1;
+  border-radius: 24px;
+
+  display : grid;
+  place-content : center;
+  font-size: 18px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #B6B6B6;
+  opacity: 1;
+}
+
+.rate-btn-ready {
+  width: 240rpx !important;
+  height: 82rpx;
+  background: #8366FC;
+  box-shadow: 0px 3px 6px rgba(105, 48, 195, 0.16);
+  opacity: 1;
+  border-radius: 24px;
+  color: #ffffff;
+
+  display : grid;
+  place-content : center;
+  font-size: 18px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
   color: #FFFFFF;
   opacity: 1;
 }

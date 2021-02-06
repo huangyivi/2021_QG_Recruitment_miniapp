@@ -5,19 +5,19 @@
   <view class="more-pane">
     <view class="more-line">
       <text>姓名</text>
-      <view>曾伟斌</view>
+      <view>{{student.name}}</view>
     </view>
     <view class="more-line">
       <text>学院专业</text>
-      <view>计算机学院 软件工程</view>
+      <view>{{student.profession}}</view>
     </view>
     <view class="more-line">
       <text>个人情况</text>
-      <view>未参与其他社团或者科技创新团队</view>
+      <view>{{student.personal}}</view>
     </view>
     <view class="more-line">
       <text>个人简介</text>
-      <view>擅长拿国奖</view>
+      <view>{{student.profile}}</view>
     </view>
   </view>
 </view>

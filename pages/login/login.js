@@ -53,6 +53,9 @@ Page({
     }
   },
   login(e) {
+    wx.showLoading({
+      title: '正在授权'
+    })
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
@@ -91,6 +94,7 @@ Page({
               method: 'POST',
               success: function (res) {
                 if (res.data.code == 1) {
+                  wx.hideLoading();
                   app.globalData.character = res.data.data;
                   if (res.data.data == 1) {
                     wx.redirectTo({
