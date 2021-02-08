@@ -69,7 +69,7 @@ Page({
         })
       } else {
         wx.redirectTo({
-          url: '../pages/interview/interview'
+          url: '../interview/interview'
         })
       }
     } else {
@@ -98,11 +98,11 @@ Page({
                   app.globalData.character = res.data.data;
                   if (res.data.data == 1) {
                     wx.redirectTo({
-                      url: '../calling/calling'
+                      url:'../interview/interview'
                     })
                   } else {
                     wx.redirectTo({
-                      url: '../interview/interview'
+                      url:  '../calling/calling'
                     })
                   }
                 }
