@@ -105,8 +105,9 @@ Page({
           app.globalData.character = res.data.data;
           if (res.data.data == 1) {
             wx.redirectTo({
-              // url: '../calling/calling'
-              url: '../enroll/enroll'
+              url: '../calling/calling'
+              // url: '../enroll/enroll'
+              // url: '../interview/interview'
             })
           } else {
             wx.redirectTo({
