@@ -10,7 +10,7 @@ Page({
   },
   onLoad(){
     let _this = this;
-    let openId = app.globalData.watchStudent;
+    let openId = app.globalData.watchStudent.openId;
     wx.request({
       url: app.globalData.domain + 'queue/tutor/studentInfo/' + openId,
       header : {

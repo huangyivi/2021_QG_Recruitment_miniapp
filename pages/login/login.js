@@ -53,6 +53,7 @@ Page({
     }
   },
   login(e) {
+    let _this = this;
     wx.showLoading({
       title: '正在授权'
     })
@@ -78,39 +79,58 @@ Page({
         url: app.globalData.domain + 'api/wx/login',
         method: 'POST',
         data: {
-          // appId: 'wx931621df7e90d78f',
-          code: app.globalData.code,
-          // secret: '6bc320b953beff8d9636722dc8aee44d'
+          code: app.globalData.code
         },
         success: function (res) {
-          console.log(res);
           if (res.data.code == 1) {
             app.globalData.token = res.data.data.token;
-            wx.request({
-              url: app.globalData.domain + 'queue/isTutor',
-              header: {
-                'token': app.globalData.token
-              },
-              method: 'POST',
-              success: function (res) {
-                if (res.data.code == 1) {
-                  wx.hideLoading();
-                  app.globalData.character = res.data.data;
-                  if (res.data.data == 1) {
-                    wx.redirectTo({
-                      url: '../calling/calling'
-                    })
-                  } else {
-                    wx.redirectTo({
-                      url: '../interview/interview'
-                    })
-                  }
-                }
-              }
-            })
+            _this.getOpenId();
+            _this.isTutor();
           }
         }
       })
     }
+  },
+  // 判断是否为导师
+  isTutor(){
+    wx.request({
+      url: app.globalData.domain + 'queue/isTutor',
+      header: {
+        'token': app.globalData.token
+      },
+      method: 'POST',
+      success: function (res) {
+        if (res.data.code == 1) {
+          wx.hideLoading();
+          app.globalData.character = res.data.data;
+          if (res.data.data == 1) {
+            wx.redirectTo({
+              // url: '../calling/calling'
+              url: '../enroll/enroll'
+            })
+          } else {
+            wx.redirectTo({
+              url: '../interview/interview'
+            })
+          }
+        }
+      }
+    })
+  },
+  // 获取openid
+  getOpenId(){
+    wx.request({
+      url: app.globalData.domain + 'api/wx/openId',
+      header: {
+        token : app.globalData.token
+      },
+      method : 'POST',
+      success(res){
+        if(res.data.code == 1){
+          app.globalData.openId = res.data.data;
+        }
+      }
+    })
   }
+
 })

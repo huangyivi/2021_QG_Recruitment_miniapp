@@ -42,8 +42,8 @@
         <view class="q-item">
           <view class="q-box q-id">{{item.id}}</view>
           <view class="q-box q-name">{{item.name}}</view>
-          <view class="q-box q-opt" data-idx="{{idx}}" >
-            <mp-icon icon="more" color="#808080" size="{{36}}" catchtap="showMenu" wx:if="{{isStart}}"></mp-icon>
+          <view class="q-box q-opt" >
+            <mp-icon icon="more" color="#808080" size="{{36}}" data-openId="{{item.openId}}" catchtap="showMenu" wx:if="{{isStart}}"></mp-icon>
           </view>
         </view>
       </view>
