@@ -8,7 +8,7 @@ const app = getApp();
 Page({
   data: {
     // 导师队列
-    teacherQueue : [],
+    teacherQueue: [],
     // 导师队列情况（用于修改信息界面）
     queue: [],
     // 面试者队列
@@ -30,6 +30,48 @@ Page({
     this.getInterviewQueue();
     this.isStartInterview();
     this.getTeacherQueue();
+
+    let _this = this;
+    wx.connectSocket({
+      url: app.globalData.socket + app.globalData.openId,
+      success(){
+        wx.onSocketMessage((res) => {
+          if(res.data.msgType == 1){
+            let _queue = _this.data.interviewer;
+            for(let i=0;i<_queue.length;i++){
+              if(_queue[i].id == res.data.id){
+                _queue.splice(i,1);
+                _this.data.queue = _queue;
+                _this.setData({
+                  queue : _queue
+                })
+                break;
+              }
+            }
+          }else if(res.data.msgType == 2){
+            let _queue = _this.data.teacherQueue;
+            for(let j=0;j<_queue.length;j++){
+              if(_queue[j].num == res.data.num){
+                let student = res.data.student;
+                _queue[j].id = student.id;
+                _queue[j].name = student.name;
+                _queue[j].openId = student.openId;
+                _this.data.teacherQueue[j] = _queue[j];
+                _this.setData({
+                  "teacherQueue[j]" : _queue[j]
+                })
+              }
+            }
+          }
+        })
+      },
+      fail(){
+        wx.showModal({
+          title : '连接socket失败！',
+          showCancel : false
+        })
+      }
+    })
   },
   // 跳转设置页面
   async toSetting() {
@@ -76,7 +118,7 @@ Page({
   },
 
   // 获取房间信息
-  getRoomInfo(){
+  getRoomInfo() {
     let _this = this;
     wx.request({
       url: app.globalData.domain + 'queue/tutor/RoomInfo',
@@ -111,7 +153,7 @@ Page({
     })
   },
   // 获取导师编号
-  getTeacherId(){
+  getTeacherId() {
     let _this = this;
     wx.request({
       url: app.globalData.domain + 'queue/tutor/getNum',
@@ -131,7 +173,7 @@ Page({
     })
   },
   // 获取面试队列
-  getInterviewQueue(){
+  getInterviewQueue() {
     let _this = this;
     wx.request({
       url: app.globalData.domain + 'queue/tutor/getQueue',
@@ -151,7 +193,7 @@ Page({
     })
   },
   // 检查是否已经开始面试
-  isStartInterview(){
+  isStartInterview() {
     let _this = this;
     wx.request({
       url: app.globalData.domain + 'queue/tutor/isStart',
@@ -178,7 +220,7 @@ Page({
     })
   },
   // 获取导师队列情况
-  getTeacherQueue(){
+  getTeacherQueue() {
     let _this = this;
     wx.request({
       url: app.globalData.domain + 'queue/tutor/current',
@@ -189,15 +231,15 @@ Page({
       success(res) {
         if (res.data.code == 1) {
           let data = res.data.data;
-          for(let i=0;i<data.length;i++){
-            if(data[i].num === _this.data.group){
+          for (let i = 0; i < data.length; i++) {
+            if (data[i].num === _this.data.group) {
               app.globalData.current = data[i].student;
               app.globalData.watchStudent = data[i].student;
             }
           }
           _this.data.teacherQueue = data;
           _this.setData({
-            teacherQueue : data
+            teacherQueue: data
           })
         }
       }
@@ -223,19 +265,44 @@ Page({
   },
   // 显示菜单
   showMenu(e) {
-    let idx = e.currentTarget.dataset.idx;
-    console.log(idx);
+    let openId = e.currentTarget.dataset.openID;
     wx.showActionSheet({
       itemList: ['查看资料', '开始面试'],
       success(res) {
         if (res.tapIndex == 0) {
-          wx.navigateTo({
-            url: '../more/more',
+          wx.request({
+            url: app.globalData.domain + 'queue/tutor/studentInfo/' + openId,
+            header: {
+              token: app.globalData.token
+            },
+            method: "POST",
+            success(res) {
+              if (res.data.code == 1) {
+                app.globalData.watchStudent = res.data.data;
+                wx.navigateTo({
+                  url: '../more/more',
+                })
+              }
+            }
           })
         } else if (res.tapIndex == 1) {
-          wx.navigateTo({
-            url: '../rating/rating',
+          wx.request({
+            url: app.globalData.domain + 'queue/tutor/callNumber/' + openId,
+            header: {
+              token: app.globalData.token
+            },
+            method: "POST",
+            success(res) {
+              if (res.data.code == 1) {
+                app.globalData.current = res.data.data;
+                wx.navigateTo({
+                  url: '../rating/rating',
+                })
+              }
+            }
+
           })
+          
         }
       }
     })
@@ -319,7 +386,7 @@ Page({
   // 修改房间信息
   setRoom() {
     let _this = this;
-    if(this.data.isReady){
+    if (this.data.isReady) {
       wx.request({
         url: app.globalData.domain + 'queue/tutor/setRoom',
         header: {
@@ -338,10 +405,10 @@ Page({
             _this.data.timeStamp = data.signInTime;
             _this.data.time = _this.formatTime(data.signInTime);
             _this.setData({
-              direction : data.group,
-              classroom : data.place,
-              timeStamp : data.signInTime,
-              time : _this.formatTime(data.signInTime),
+              direction: data.group,
+              classroom: data.place,
+              timeStamp: data.signInTime,
+              time: _this.formatTime(data.signInTime),
             });
           }
         }
@@ -361,7 +428,7 @@ Page({
             })
             _this.getRoomInfo();
             _this.toSituation();
-          }else{
+          } else {
             wx.showModal({
               content: '当前导师编号已被占用，请重新选择',
               showCancel: false
@@ -370,25 +437,25 @@ Page({
         }
       });
     }
-   
+
 
 
   },
   // 开始面试
-  startInterview(){
+  startInterview() {
     let _this = this;
-    if(!this.data.isStart){
+    if (!this.data.isStart) {
       wx.request({
         url: app.globalData.domain + 'queue/tutor/start',
         method: 'POST',
         header: {
-          token : app.globalData.token
+          token: app.globalData.token
         },
-        success(res){
-          if(res.data.code == 1){
+        success(res) {
+          if (res.data.code == 1) {
             _this.data.isStart = true;
             _this.setData({
-              isStart : true              
+              isStart: true
             })
           }
         }

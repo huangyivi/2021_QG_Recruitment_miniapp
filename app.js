@@ -3,12 +3,13 @@ App({
   globalData: {
     userInfo: null,
     domain: 'http://39.98.41.126:30001/',
-    socket: 'ws://39.98.41.126:30001/ws',
+    socket: 'ws://39.98.41.126:30002/queue/tutor/',
     token: '',
     character: null,
     code : null,
     current : {},
-    watchStudent : {}
+    watchStudent : {},
+    openId : ""
   },
   onLaunch() {
     // 登录
@@ -16,6 +17,7 @@ App({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         this.globalData.code = res.code;
+        
       }
     })
     // 获取用户信息
@@ -38,5 +40,7 @@ App({
         }
       }
     })
+
+    
   }
 })
