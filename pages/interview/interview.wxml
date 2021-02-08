@@ -11,7 +11,7 @@
                 <text class="pic">{{interviewNum[1]}}</text>
                 <text class="pic">{{interviewNum[0]}}</text> -->
                 <text class="pic {{status <= 1?'pic-bg':''}} {{status===2?'purple-color':''}}" wx:for="{{interviewNum}}"
-                    wx:key="*this">{{item}}</text>
+                    wx:key="index"><text hidden="{{status < 2}}">{{item}}</text></text>
             </view>
         </view>
         <view hidden="{{status !== 0}}" class="interview-time interview-item">
@@ -22,12 +22,12 @@
             <view class="title">面试地点</view>
             <view class="address fill">{{interviewAddress}}</view>
         </view>
-        <view hidden="{{status === 0}}" class="interview-teacher interview-item">
+        <view hidden="{{status < 2}}" class="interview-teacher interview-item">
             <view class="title">面试导师</view>
             <view class="teacher fill">{{interviewTeacher}}</view>
         </view>
         <view class="interview-btn-wrap">
-            <view class="btn {{status === 1?'purple-btn':''}} {{status === 3?'green-btn':''}}" bindtap="handleStatus">
+            <view class="btn {{status === 1?'purple-btn':''}} {{status === 3?'green-btn':''}}" bindtap="handleRecord">
                 {{textInfo}}
             </view>
         </view>
