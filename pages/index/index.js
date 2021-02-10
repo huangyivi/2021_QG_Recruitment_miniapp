@@ -13,7 +13,8 @@ Page({
     this.data.isTutor = flag;
     this.setData({
       isTutor : flag
-    })
+    });
+
   },
   toInterview(){
     wx.navigateTo({

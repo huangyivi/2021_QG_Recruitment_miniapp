@@ -9,13 +9,13 @@
   </view>
   <view class="{{isNull[1] ? 'infos-err' : 'infos'}}">
     <text class="">学号</text>
-    <input data-name="myId" class="inputs {{isFocus[1]? '.focus' : ''}}" id="1" type="number" value="{{myId}}" placeholder="{{isNull[1] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[1]? 'red' : ''}}" bindinput="inputChange" bindblur="isNull" catchtap="toNormal"/>
+    <input data-name="myId" class="inputs {{isFocus[1]? '.focus' : ''}}" id="1" type="number" value="{{myId}}" placeholder="{{isNull[1] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[1]? 'red' : ''}}" bindinput="inputChange" bindblur="validateId" catchtap="toNormal"/>
     <text style="color : #8366FC;font-size: 16px;" wx:if="{{isFocus[1]}}">*学号只能由3120或3220开头，长度为10</text>
     <text style="color : red;font-size: 16px;" wx:if="{{!isIdReady}}">*学号格式有误</text>
   </view>
   <view class="{{isNull[2] ? 'infos-err' : 'infos'}}">
     <text class="">大一上绩点</text>
-    <input data-name="myGradePoint" class="inputs {{isFocus[2]? '.focus' : ''}}" id="2" type="digit" value="{{myGradePoint}}" placeholder="{{isNull[2] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[2]? 'red' : ''}}" bindinput="inputChange" bindblur="isNull" catchtap="toNormal"/>
+    <input data-name="myGradePoint" class="inputs {{isFocus[2]? '.focus' : ''}}" id="2" type="digit" value="{{myGradePoint}}" placeholder="{{isNull[2] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[2]? 'red' : ''}}" bindinput="inputChange" bindblur="validateGP" catchtap="toNormal"/>
     <text style="color : #8366FC;font-size: 16px;" wx:if="{{isFocus[2]}}">*绩点保留小数后点2位</text>
     <text style="color : red;font-size: 16px;" wx:if="{{!isGradePointReady}}">*绩点格式有误[0.00-5.00]</text>
   </view>
@@ -29,12 +29,12 @@
   </view>
   <view class="{{isNull[3] ? 'infos-err' : 'infos'}}">
     <text class="">电话</text>
-    <input data-name="myPhone" class="inputs {{isFocus[3]? '.focus' : ''}}" id="3" type="number" value="{{myPhone}}" placeholder="{{isNull[3] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[3]? 'red' : ''}}" bindinput="inputChange" bindblur="isNull" catchtap="toNormal"/>
+    <input data-name="myPhone" class="inputs {{isFocus[3]? '.focus' : ''}}" id="3" type="number" value="{{myPhone}}" placeholder="{{isNull[3] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[3]? 'red' : ''}}" bindinput="inputChange" bindblur="validatePhone" catchtap="toNormal"/>
     <text style="color : red;font-size: 16px;" wx:if="{{!isPhoneReady}}">*电话号码格式有误</text>
   </view>
   <view class="{{isNull[4] ? 'infos-err' : 'infos'}}">
     <text class="">QQ</text>
-    <input data-name="myQQ" class="inputs {{isFocus[4]? '.focus' : ''}}" id="4" type="number" value="{{myQQ}}" placeholder="{{isNull[4] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[4]? 'red' : ''}}" bindinput="inputChange" bindblur="isNull" catchtap="toNormal"/>
+    <input data-name="myQQ" class="inputs {{isFocus[4]? '.focus' : ''}}" id="4" type="number" value="{{myQQ}}" placeholder="{{isNull[4] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[4]? 'red' : ''}}" bindinput="inputChange" bindblur="validateQQ" catchtap="toNormal"/>
     <text style="color : red;font-size: 16px;" wx:if="{{!isQQReady}}">*QQ格式有误</text>
   </view>
   <view class="{{isNull[5] ? 'infos-err' : 'infos'}} reason">

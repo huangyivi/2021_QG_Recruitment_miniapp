@@ -39,19 +39,13 @@ Page({
     }
     console.log(this.data.userInfo);
   },
-  onReady() {
-    if (app.globalData.character != null) {
-      if (app.globalData.character == 1) {
-        wx.redirectTo({
-          url: './pages/calling/calling'
-        })
-      } else {
-        wx.redirectTo({
-          url: './pages/interview/interview'
-        })
-      }
-    }
-  },
+  // onReady() {
+  //   if (app.globalData.character != null) {
+  //       wx.redirectTo({
+  //         url: '/pages/index/index'
+  //       })
+  //   }
+  // },
   login(e) {
     let _this = this;
     wx.showLoading({
@@ -62,17 +56,10 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     });
-    
     if (app.globalData.character) {
-      if (app.globalData.character == 1) {
-        wx.redirectTo({
-          url: '../calling/calling'
-        })
-      } else {
-        wx.redirectTo({
-          url: '../interview/interview'
-        })
-      }
+      wx.redirectTo({
+        url: '../index/index',
+      })
     } else {
       // 登录
       wx.request({
@@ -103,19 +90,9 @@ Page({
         if (res.data.code == 1) {
           wx.hideLoading();
           app.globalData.character = res.data.data;
-          if (res.data.data == 1) {
-            // 1为导师
-            // -1为学生
-            wx.redirectTo({
-              url: '../calling/calling'
-              // url: '../enroll/enroll'
-              // url: '../interview/interview'
-            })
-          } else {
-            wx.redirectTo({
-              url: '../interview/interview'
-            })
-          }
+          wx.redirectTo({
+            url: '../index/index',
+          })
         }
       }
     })
@@ -134,6 +111,18 @@ Page({
         }
       }
     })
+  },
+  subscribe(){
+        // 订阅消息
+        wx.requestSubscribeMessage({
+          tmplIds: ['MKHUGNsRQJvTzhCsXQssYd-GWF2ou-G1UFfE5VoRn18','BqEm1aEJndFyQ_J9NEmCGPVdbf7V1zPnr7N7WxlqWSY','h6I5OGl4i5VH03wCNi363IDXn3ioVooMQH_F-35ZDTg'],
+          success(res){
+            console.log(res);
+          },
+          fail(res){
+            console.log(res);
+          }
+        })
   }
 
 })

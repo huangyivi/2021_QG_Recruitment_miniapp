@@ -30,12 +30,12 @@
 .infos {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: flex-start;
   margin: 20rpx;
   padding: 10rpx;
   width: 80%;
-  height: 150rpx;
+  height: 180rpx;
 }
 
 .infos text {
@@ -69,12 +69,13 @@
 .infos-err {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: flex-start;
   margin: 20rpx;
   padding: 10rpx;
   width: 80%;
-  height: 150rpx;
+  height: 180rpx;
+
 }
 
 .infos-err text {

@@ -7,7 +7,8 @@ page {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-items: space-evenly;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .img-container {

@@ -28,7 +28,6 @@ Page({
     // 用于控制css
     isNull: [false, false, false, false, false, false, false],
     isFocus: [false, false, false, false, false, false, false],
-
     // 字段是否合格
     isIdReady: true,
     isGradePointReady: true,
@@ -68,7 +67,7 @@ Page({
   },
   isNull(e) {
     // 检测输入是否为空
-    let id = e.target.id;
+    var id = e.target.id;
     let focus = 'isFocus[' + id + ']';
     this.data.isFocus[id] = false;
     this.setData({
@@ -80,31 +79,18 @@ Page({
       this.setData({
         [key]: true
       })
+      return true;
     } else {
-      let key = 'isNull[' + id + ']';
+      let key = `isNull[${id}]`;
       this.data.isNull[id] = false;
       this.setData({
         [key]: false
       })
+      this.setBtn();
+      return false;
     }
 
-    // 重置状态
-    this.data.isFilled = false;
-    this.setData({
-      'isFilled': false
-    })
 
-    // 检验数字类是否正确
-    if (!this.validateId() || !this.validateGP() || !this.validatePhone() || !this.validateQQ()) return;
-
-    // 检查所有是否为空
-    for (let item of this.data.isNull) {
-      if (item) return;
-    }
-    this.data.isFilled = true;
-    this.setData({
-      'isFilled': true
-    })
   },
   toNormal(e) {
     // 将选中框样式设置为选中态
@@ -122,71 +108,88 @@ Page({
     })
   },
   // 检验学号是否符合规范
-  validateId() {
+  validateId(e) {
+    if (this.isNull(e)) return;
     let id = this.data.myId;
     if (/^3120|3220\d{6}$/.test(id)) {
       this.data.isIdReady = true;
       this.setData({
         isIdReady: true
       })
-      return true;
     } else {
       this.data.isIdReady = false;
       this.setData({
         isIdReady: false
       })
-      return false
+      // 重置状态
+      this.data.isFilled = false;
+      this.setData({
+        'isFilled': false
+      })
     }
   },
   // 检验绩点是否符合规范
-  validateGP() {
+  validateGP(e) {
+    if (this.isNull(e)) return;
     let gp = this.data.myGradePoint;
     if (/^[0-5].\d{2}$/.test(gp)) {
       this.data.isGradePointReady = true;
       this.setData({
         isGradePointReady: true
       })
-      return true;
     } else {
       this.data.isGradePointReady = false;
       this.setData({
         isGradePointReady: false
       })
-      return false
+      // 重置状态
+      this.data.isFilled = false;
+      this.setData({
+        'isFilled': false
+      })
     }
   },
   // 检验电话是否符合规范
-  validatePhone() {
+  validatePhone(e) {
+    if (this.isNull(e)) return;
     let phone = this.data.myPhone;
     if (/^1[3|4|5|7|8|9]\d{9}$/.test(phone)) {
       this.data.isPhoneReady = true;
       this.setData({
         isPhoneReady: true
       })
-      return true;
     } else {
       this.data.isPhoneReady = false;
       this.setData({
         isPhoneReady: false
       })
-      return false
+      // 重置状态
+      this.data.isFilled = false;
+      this.setData({
+        'isFilled': false
+      })
     }
   },
   // 检验QQ是否符合规范
-  validateQQ() {
+  validateQQ(e) {
+    if (this.isNull(e)) return;
     let QQ = this.data.myQQ;
     if (/^[0-9]+$/.test(QQ)) {
       this.data.isQQReady = true;
       this.setData({
         isQQReady: true
       })
-      return true;
+
     } else {
       this.data.isQQReady = false;
       this.setData({
         isQQReady: false
       })
-      return false
+      // 重置状态
+      this.data.isFilled = false;
+      this.setData({
+        'isFilled': false
+      })
     }
   },
   // 提交表格表格
@@ -213,7 +216,7 @@ Page({
         method: 'POST',
         data: data,
         success(res) {
-          if(res.data.status){
+          if (res.data.status) {
             wx.showModal({
               showCancel: false,
               title: '报名成功',
@@ -221,7 +224,7 @@ Page({
               confirmText: '返回主页',
               confirmColor: '#8366FC'
             })
-          }else{
+          } else {
             wx.showModal({
               showCancel: false,
               title: '报名失败',
@@ -230,7 +233,7 @@ Page({
               confirmColor: '#8366FC'
             })
           }
-          
+
         }
       })
     }
@@ -252,7 +255,25 @@ Page({
       })
     }
   },
-  back(){
+  back() {
     wx.navigateBack();
+  },
+  // 改变按钮状态
+  setBtn() {
+    // 重置状态
+    this.data.isFilled = false;
+    this.setData({
+      'isFilled': false
+    })
+    if (this.data.isGradePointReady && this.data.isIdReady && this.data.myIntroduction && this.data.myName && this.data.isPhoneReady && this.data.isQQReady && this.data.mySituation) {
+      // 检查所有是否为空
+      for (let item of this.data.isNull) {
+        if (item) return;
+      }
+      this.data.isFilled = true;
+      this.setData({
+        'isFilled': true
+      })
+    }
   }
 })

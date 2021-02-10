@@ -5,5 +5,5 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view>
-  <button type="primary" open-type="getUserInfo" bindgetuserinfo="login">授权用户信息</button>
+  <button type="primary" open-type="getUserInfo" bindgetuserinfo="login" bindtap="subscribe">授权用户信息</button>
 </view>
