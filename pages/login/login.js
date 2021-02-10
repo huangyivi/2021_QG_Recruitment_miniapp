@@ -56,11 +56,7 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     });
-    if (app.globalData.character) {
-      wx.redirectTo({
-        url: '../index/index',
-      })
-    } else {
+    
       // 登录
       wx.request({
         url: app.globalData.domain + 'api/wx/login',
@@ -76,7 +72,6 @@ Page({
           }
         }
       })
-    }
   },
   // 判断是否为导师
   isTutor(){
