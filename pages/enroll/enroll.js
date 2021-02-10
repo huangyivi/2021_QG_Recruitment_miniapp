@@ -251,5 +251,8 @@ Page({
         }
       })
     }
+  },
+  back(){
+    wx.navigateBack();
   }
 })

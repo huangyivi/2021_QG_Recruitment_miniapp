@@ -387,4 +387,8 @@ Page({
       }
     }, 3000);
   },
+
+  back(){
+    wx.navigateBack();
+  }
 })

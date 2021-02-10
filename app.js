@@ -5,7 +5,8 @@ App({
     domain: 'http://39.98.41.126:30001/',
     socket: 'ws://39.98.41.126:30002/queue/tutor/',
     token: '',
-    character: null,
+    // 识别用户身份：1为导师，-1为学生
+    character: -1,
     code : null,
     current : {},
     watchStudent : {},

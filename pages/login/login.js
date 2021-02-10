@@ -104,6 +104,8 @@ Page({
           wx.hideLoading();
           app.globalData.character = res.data.data;
           if (res.data.data == 1) {
+            // 1为导师
+            // -1为学生
             wx.redirectTo({
               url: '../calling/calling'
               // url: '../enroll/enroll'

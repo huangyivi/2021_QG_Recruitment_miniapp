@@ -1,6 +1,6 @@
 <view class="enroll-container">
   <view class="rtn">
-    <mp-icon icon="back" color="black" size="{{18}}"></mp-icon>
+    <mp-icon icon="back" color="black" size="{{18}}" catchtap="back"></mp-icon>
   </view>
   <text class="enroll-title">报名QG工作室</text>
   <view class="{{isNull[0] ? 'infos-err' : 'infos'}}">

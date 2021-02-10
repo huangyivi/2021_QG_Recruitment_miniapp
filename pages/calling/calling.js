@@ -14,8 +14,11 @@ Page({
     // 面试者队列
     interviewer: [],
     colors: ['#B6B6B6', '#FEB40B', '#FD6D5A', '#518CD8', '#6DC354'],
+    // 组别
     direction: '',
+    // 导师编号
     group: 0,
+    // 面试地点
     classroom: '',
     time: '',
     timeStamp: '',
@@ -35,41 +38,48 @@ Page({
     wx.connectSocket({
       url: app.globalData.socket + app.globalData.openId,
       success(){
-        wx.onSocketMessage((res) => {
-          if(res.data.msgType == 1){
-            let _queue = _this.data.interviewer;
-            for(let i=0;i<_queue.length;i++){
-              if(_queue[i].id == res.data.id){
-                _queue.splice(i,1);
-                _this.data.queue = _queue;
-                _this.setData({
-                  queue : _queue
-                })
-                break;
-              }
-            }
-          }else if(res.data.msgType == 2){
-            let _queue = _this.data.teacherQueue;
-            for(let j=0;j<_queue.length;j++){
-              if(_queue[j].num == res.data.num){
-                let student = res.data.student;
-                _queue[j].id = student.id;
-                _queue[j].name = student.name;
-                _queue[j].openId = student.openId;
-                _this.data.teacherQueue[j] = _queue[j];
-                _this.setData({
-                  "teacherQueue[j]" : _queue[j]
-                })
-              }
-            }
-          }
-        })
+        console.log('连接成功');
       },
       fail(){
-        wx.showModal({
-          title : '连接socket失败！',
-          showCancel : false
-        })
+        console.log('连接失败');
+      }
+    })
+    wx.onSocketMessage((res) => {
+      if(res.data.msgType == 1){
+        // 面试队伍更新
+        let _queue = _this.data.interviewer;
+        for(let i=0;i<_queue.length;i++){
+          if(_queue[i].id == res.data.id){
+            _queue.splice(i,1);
+            _this.data.queue = _queue;
+            _this.setData({
+              queue : _queue
+            })
+            break;
+          }
+        }
+      }else if(res.data.msgType == 2){
+        // 某导师的学生更新
+        let _queue = _this.data.teacherQueue;
+        for(let j=0;j<_queue.length;j++){
+          if(_queue[j].num == res.data.num){
+            let student = res.data.student;
+            _queue[j].id = student.id;
+            _queue[j].name = student.name;
+            _queue[j].openId = student.openId;
+            _this.data.teacherQueue[j] = _queue[j];
+            _this.setData({
+              "teacherQueue[j]" : _queue[j]
+            })
+          }
+          // 如果是本队的学生更新，更新本地暂存名单
+          // if(_queue[j].num == _this.data.group){
+          //   let student = res.data.student;
+          //   app.globalData.current.id = student.id;
+          //   app.globalData.current.name = student.name;
+          //   app.globalData.current.openId = student.openId;
+          // }
+        }
       }
     })
   },

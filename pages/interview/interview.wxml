@@ -1,6 +1,6 @@
 <view class="interview-container">
     <view class="interview-rtn">
-        <mp-icon icon="back" color="black" size="{{18}}"></mp-icon>
+        <mp-icon icon="back" color="black" size="{{18}}" catchtap="back"></mp-icon>
     </view>
     <view class="interview-wrap {{status>2?'green-border':''}}">
         <view class="interview-num">
