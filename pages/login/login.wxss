@@ -29,3 +29,16 @@ page{
 .userinfo-nickname {
   color: #aaa;
 }
+
+
+.no-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+  background-color: #cccccc;
+}
+
+.no-nickname {
+  color: #aaa;
+}

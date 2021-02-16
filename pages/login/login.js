@@ -37,17 +37,29 @@ Page({
         }
       })
     }
-    console.log(this.data.userInfo);
+    let that = this;
+    // 判断是否已订阅消息
+    wx.showLoading({
+      title: '正在授权'
+    })
+    wx.getSetting({
+      withSubscriptions: true,
+      success(res){
+        let itemSettings = res.subscriptionsSetting.itemSettings;
+        console.log(itemSettings);
+        if(itemSettings){
+          if(itemSettings['BqEm1aEJndFyQ_J9NEmCGPVdbf7V1zPnr7N7WxlqWSY'] === 'accept' && itemSettings['MKHUGNsRQJvTzhCsXQssYd-GWF2ou-G1UFfE5VoRn18'] === 'accept' && itemSettings['h6I5OGl4i5VH03wCNi363IDXn3ioVooMQH_F-35ZDTg'] === 'accept'){
+            let token = wx.getStorageSync('token')
+            that.getOpenId(token);
+            that.isTutor(token);
+          }
+
+        }
+      }
+    })
   },
-  // onReady() {
-  //   if (app.globalData.character != null) {
-  //       wx.redirectTo({
-  //         url: '/pages/index/index'
-  //       })
-  //   }
-  // },
   login(e) {
-    let _this = this;
+
     wx.showLoading({
       title: '正在授权'
     })
@@ -56,29 +68,17 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     });
-    
-      // 登录
-      wx.request({
-        url: app.globalData.domain + 'api/wx/login',
-        method: 'POST',
-        data: {
-          code: app.globalData.code
-        },
-        success: function (res) {
-          if (res.data.code == 1) {
-            app.globalData.token = res.data.data.token;
-            _this.getOpenId();
-            _this.isTutor();
-          }
-        }
-      })
+    let token = wx.getStorageSync('token')
+    this.getOpenId(token);
+    this.isTutor(token);
   },
   // 判断是否为导师
-  isTutor(){
+  isTutor(token){
+    console.log(token);
     wx.request({
       url: app.globalData.domain + 'queue/isTutor',
       header: {
-        'token': app.globalData.token
+        'token': token
       },
       method: 'POST',
       success: function (res) {
@@ -88,16 +88,23 @@ Page({
           wx.redirectTo({
             url: '../index/index',
           })
+        }else{
+          wx.hideLoading();
+          wx.showModal({
+            showCancel: false,
+            title: "登录失败！",
+            content: '请联系管理员反馈情况！'
+          })
         }
       }
     })
   },
   // 获取openid
-  getOpenId(){
+  getOpenId(token){
     wx.request({
       url: app.globalData.domain + 'api/wx/openId',
       header: {
-        token : app.globalData.token
+        token : token
       },
       method : 'POST',
       success(res){

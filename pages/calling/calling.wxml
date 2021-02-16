@@ -1,6 +1,6 @@
 <view class="calling-container" style="background-color : {{colors[group]}}">
   <view class="rtn">
-    <mp-icon icon="back" color="white" size="{{18}}"></mp-icon>
+    <mp-icon icon="back" color="white" size="{{18}}" catchtap="back"></mp-icon>
   </view>
   <view class="pane">
     <view class="situation">
@@ -29,8 +29,8 @@
         <view class="tip"></view>
         <view wx:for="{{teacherQueue}}" wx:item="item">
           <view class="q-item" catchtap="{{group == item.num?'toRating':''}}">
-            <view class="q-box q-id" style="color : {{colors[item.student.id]}}">{{item.student.length?item.student.id : '空闲'}}</view>
-            <view class="q-box q-name">{{item.student.length?item.student.name : ''}}</view>
+            <view class="q-box q-id" style="color : {{colors[item.num]}}">{{item.student.name?item.student.id : '空闲'}}</view>
+            <view class="q-box q-name">{{item.student.name?item.student.name : ''}}</view>
             <view class="q-box q-opt">
               <view class="q-group" style="background-color : {{colors[item.num]}}">{{item.num}}</view>
             </view>

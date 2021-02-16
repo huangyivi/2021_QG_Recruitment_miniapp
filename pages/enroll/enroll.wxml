@@ -25,7 +25,12 @@
   </view>
   <view class="infos">
     <text class="">专业班级</text>
-    <picker class="inputs" range="{{majors}}" bindchange="majorChange">{{majors[majorIndex]}}</picker>
+    <picker class="inputs" range="{{majors[collegeIndex]}}" bindchange="majorChange">{{majors[collegeIndex][majorIndex]}}</picker>
+  </view>
+  <view class="{{isNull[7] ? 'infos-err' : 'infos'}}">
+    <text class="">班级(0-50)</text>
+    <input data-name="myClass" class="inputs {{isFocus[7]? '.focus' : ''}}" id="7" type="number" value="{{myQQ}}" placeholder="{{isNull[7] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[7]? 'red' : ''}}" bindinput="inputChange" bindblur="validateClass" catchtap="toNormal"/>
+    <text style="color : red;font-size: 16px;" wx:if="{{!isClassReady}}">*班级只能为数字且区间为(0,50)</text>
   </view>
   <view class="{{isNull[3] ? 'infos-err' : 'infos'}}">
     <text class="">电话</text>
@@ -49,9 +54,9 @@
     <text style="font-size: 16px;color : #8366FC" wx:if="{{directionIndex == 2}}">*设计组的同学面试时请自带铅笔橡皮</text>
   </view>
   <view class="{{isNull[6] ? 'infos-err' : 'infos'}} reason">
-    <text class="">个人简介</text>
+    <text class="">个人简介(150)</text>
     <view>
-      <textarea data-name="myIntroduction" class="{{isFocus[6]? '.focus' : ''}}" id="6" maxlength="150" value="{{myIntroduction}}" bindinput="inputChange"  bindblur="isNull" catchtap="toNormal"/>
+      <textarea  data-name="myIntroduction" class="{{isFocus[6]? '.focus' : ''}}" id="6" maxlength="150" value="{{myIntroduction}}" bindinput="inputChange"  bindblur="isNull" catchtap="toNormal"/>
     </view>
   </view>
   <button catchtap="checkForm" class="{{isFilled?'filled' : 'unfilled'}}">{{isFilled?'我想加入QG工作室！':'请填写完相关信息'}}</button>

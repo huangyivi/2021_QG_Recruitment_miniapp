@@ -2,25 +2,99 @@
 App({
   globalData: {
     userInfo: null,
-    domain: 'http://39.98.41.126:30001/',
-    socket: 'ws://39.98.41.126:30002/queue/tutor/',
-    token: '',
+    domain: 'https://recruit.qgailab.com/queue_api/',
+    socket: 'wss://recruit.qgailab.com/qgWebsocket/queue/',
     // 识别用户身份：1为导师，-1为学生
-    character: -1,
-    code : null,
-    current : {},
-    watchStudent : {},
-    openId : ""
+    character: null,
+    code: null,
+    current: {},
+    watchStudent: {},
+    openId: ""
   },
   onLaunch() {
+    wx.showLoading({
+      title: '检测登录状态',
+    })
     // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        this.globalData.code = res.code;
-        
+    wx.checkSession({
+      success: (res) => {
+        // 登录状态未过期
+        wx.hideLoading();
+        if(!wx.getStorageSync('token')){
+          wx.login({
+            success: res => {
+              // 发送 res.code 到后台换取 openId, sessionKey, unionId
+              wx.request({
+                url: this.globalData.domain + 'api/wx/login',
+                method: 'POST',
+                data: {
+                  code: res.code
+                },
+                success: function (res) {
+                  if (res.data.code == 1) {
+                    wx.setStorageSync('token', res.data.data.token);
+                    // wx.getStorageSync('token') = res.data.data.token;
+                    // _this.getOpenId();
+                    // _this.isTutor();
+                  } else {
+                    wx.showModal({
+                      showCancel: false,
+                      title: 'code验证失败！',
+                      content: "请联系管理员反馈一下情况~",
+                    })
+                  }
+                },
+                fail: function (res) {
+                  wx.showModal({
+                    title: "服务器开小差了",
+                    content: "请联系管理员反馈一下情况~",
+                    showCancel: false
+                  })
+                }
+              })
+            }
+          })
+        }
+      },
+      fail: res => {
+        // 登录状态过期了
+        wx.hideLoading();;
+        wx.login({
+          success: res => {
+            // 发送 res.code 到后台换取 openId, sessionKey, unionId
+            wx.request({
+              url: this.globalData.domain + 'api/wx/login',
+              method: 'POST',
+              data: {
+                code: res.code
+              },
+              success: function (res) {
+                if (res.data.code == 1) {
+                  wx.setStorageSync('token', res.data.data.token);
+                  // wx.getStorageSync('token') = res.data.data.token;
+                  // _this.getOpenId();
+                  // _this.isTutor();
+                } else {
+                  wx.showModal({
+                    showCancel: false,
+                    title: 'code验证失败！',
+                    content: "请联系管理员反馈一下情况~",
+                  })
+                }
+              },
+              fail: function (res) {
+                wx.showModal({
+                  title: "服务器开小差了",
+                  content: "请联系管理员反馈一下情况~",
+                  showCancel: false
+                })
+              }
+            })
+          }
+        })
       }
     })
+
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -42,6 +116,7 @@ App({
       }
     })
 
-    
-  }
+
+  },
+
 })

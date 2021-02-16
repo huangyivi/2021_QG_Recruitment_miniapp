@@ -253,7 +253,7 @@ Page({
   handleSocket(openId) {
     //建立websocket连接
     wx.connectSocket({
-      url: 'ws://39.98.41.126:30002/queue/student/' + openId,
+      url: app.globalData.socket+ 'student/' + openId,
       success: () => {
         console.log('连接成功');
       }
@@ -337,10 +337,9 @@ Page({
   //发送post请求
   requestPOST(params) {
     const {
-      token,
       domain
     } = app.globalData;
-    // token = wx.getStorageSync('token');
+    let mytoken = wx.getStorageSync('token');
 
     //展示加载中
     wx.showLoading({
@@ -352,7 +351,7 @@ Page({
       wx.request({
         ...params,
         header: {
-          token
+          token : mytoken
         },
         url: domain + params.url,
         method: 'POST',

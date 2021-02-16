@@ -65,7 +65,7 @@ Page({
       wx.request({
         url: app.globalData.domain + 'queue/tutor/callNumber',
         header: {
-          token: app.globalData.token
+          token: wx.getStorageSync('token')
         },
         method: "POST",
         success(res) {
@@ -122,7 +122,7 @@ Page({
       wx.request({
         url: app.globalData.domain + 'queue/tutor/comment',
         header: {
-          token: app.globalData.token
+          token: wx.getStorageSync('token')
         },
         method: "POST",
         data: {

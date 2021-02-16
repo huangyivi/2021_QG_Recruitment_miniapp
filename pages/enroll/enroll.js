@@ -10,7 +10,7 @@ Page({
     isFilled: false,
 
     colleges: ['计算机学院'],
-    majors: ['计算机科学与技术', '软件工程', '信息安全', '网络工程'],
+    majors: [['计算机科学与技术', '软件工程', '信息安全', '网络工程']],
     directions: ['前端组', '后台组', '设计组', '图形组', '移动组', '数据挖掘组', '嵌入式组'],
 
     // 学生信息
@@ -25,14 +25,32 @@ Page({
     myQQ: '',
     mySituation: '',
     myIntroduction: '',
+    myClass: '',
     // 用于控制css
-    isNull: [false, false, false, false, false, false, false],
-    isFocus: [false, false, false, false, false, false, false],
+    isNull: [false, false, false, false, false, false, false,false],
+    isFocus: [false, false, false, false, false, false, false,false],
     // 字段是否合格
     isIdReady: true,
     isGradePointReady: true,
     isPhoneReady: true,
-    isQQReady: true
+    isQQReady: true,
+    isClassReady: true
+  },
+  onLoad(){
+    let _this = this;
+    wx.request({
+      url: 'https://recruit.qgailab.com/recruit/academy',
+      method: 'GET',
+      success(res){
+        console.log(res.data);
+       _this.data.colleges = res.data.academy;
+       _this.data.majors = res.data.major;
+       _this.setData({
+          colleges : res.data.academy,
+          majors : res.data.major
+        })
+      }
+    })
   },
   inputChange(e) {
     let _this = this;
@@ -47,8 +65,10 @@ Page({
   collegeChange(e) {
     // 学院改变，专业跟着改变
     this.data.collegeIndex = e.detail.value;
+    this.data.majorIndex = 0;
     this.setData({
-      collegeIndex: this.data.collegeIndex
+      collegeIndex: this.data.collegeIndex,
+      majorIndex : 0
     })
   },
   majorChange(e) {
@@ -132,7 +152,7 @@ Page({
   validateGP(e) {
     if (this.isNull(e)) return;
     let gp = this.data.myGradePoint;
-    if (/^[0-5].\d{2}$/.test(gp)) {
+    if (/^[0-5]\.\d{2}$/.test(gp)) {
       this.data.isGradePointReady = true;
       this.setData({
         isGradePointReady: true
@@ -192,8 +212,34 @@ Page({
       })
     }
   },
+  // 检验QQ是否符合规范
+  validateClass(e) {
+    if (this.isNull(e)) return;
+    let Class = this.data.myClass;
+    console.log(Class);
+    if (/^[0-9]+$/.test(Class) && 0 < Class && Class < 50) {
+      this.data.isClassReady = true;
+      this.setData({
+        isClassReady: true
+      })
+
+    } else {
+      this.data.isClassReady = false;
+      this.setData({
+        isClassReady: false
+      })
+      // 重置状态
+      this.data.isFilled = false;
+      this.setData({
+        'isFilled': false
+      })
+    }
+  },
   // 提交表格表格
   submitForm() {
+    wx.showLoading({
+      title: '提交中',
+    })
     if (this.data.isFilled) {
       let groupId = this.data.directionIndex;
       groupId++;
@@ -204,7 +250,7 @@ Page({
         gradePoint: this.data.myGradePoint,
         academy: this.data.colleges[this.data.collegeIndex],
         openId: app.globalData.openId,
-        majorClass: this.data.majors[this.data.majorIndex],
+        majorClass: this.data.majors[this.data.collegeIndex][this.data.majorIndex] + this.data.myClass + '班',
         phoneNum: this.data.myPhone,
         qq: this.data.myQQ,
         explaination: this.data.mySituation,
@@ -212,28 +258,43 @@ Page({
         groupId: groupId,
       }
       wx.request({
-        url: 'http://39.98.41.126:30007/recruit/signup',
+        url: 'https://recruit.qgailab.com/recruit/signup',
         method: 'POST',
         data: data,
         success(res) {
+          wx.hideLoading();
           if (res.data.status) {
             wx.showModal({
               showCancel: false,
               title: '报名成功',
               content: '*若发现资料填写有误，\r\n请及时联系我们',
               confirmText: '返回主页',
-              confirmColor: '#8366FC'
+              confirmColor: '#8366FC',
+              success(){
+                wx.redirectTo({
+                  url: '../index/index',
+                })
+              }
             })
           } else {
+            console.log(res);
             wx.showModal({
               showCancel: false,
               title: '报名失败',
-              content: '*服务器开小差了~，\r\n请联系管理员',
+              content: '*服务器开小差了~\r\n请联系管理员',
               confirmText: '返回填写',
               confirmColor: '#8366FC'
             })
           }
 
+        },
+        fail(res){
+          wx.hideLoading();
+          wx.showModal({
+            showCancel: false,
+            title: '提交失败！',
+            content: '请联系管理员反馈情况~'
+          })
         }
       })
     }

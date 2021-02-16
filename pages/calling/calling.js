@@ -27,7 +27,7 @@ Page({
     // 是否填写完毕信息
     isReady: false
   },
-  onLoad() {
+  onShow() {
     this.getRoomInfo();
     this.getTeacherId();
     this.getInterviewQueue();
@@ -36,7 +36,7 @@ Page({
 
     let _this = this;
     wx.connectSocket({
-      url: app.globalData.socket + app.globalData.openId,
+      url: app.globalData.socket+ 'tutor/' + app.globalData.openId,
       success(){
         console.log('连接成功');
       },
@@ -45,11 +45,13 @@ Page({
       }
     })
     wx.onSocketMessage((res) => {
-      if(res.data.msgType == 1){
+      console.log('有新消息拉');
+      console.log(res);
+      if(res.msgType == 1){
         // 面试队伍更新
         let _queue = _this.data.interviewer;
         for(let i=0;i<_queue.length;i++){
-          if(_queue[i].id == res.data.id){
+          if(_queue[i].id == res.id){
             _queue.splice(i,1);
             _this.data.queue = _queue;
             _this.setData({
@@ -58,12 +60,12 @@ Page({
             break;
           }
         }
-      }else if(res.data.msgType == 2){
+      }else if(res.msgType == 2){
         // 某导师的学生更新
         let _queue = _this.data.teacherQueue;
         for(let j=0;j<_queue.length;j++){
-          if(_queue[j].num == res.data.num){
-            let student = res.data.student;
+          if(_queue[j].num == res.num){
+            let student = res.student;
             _queue[j].id = student.id;
             _queue[j].name = student.name;
             _queue[j].openId = student.openId;
@@ -133,7 +135,7 @@ Page({
     wx.request({
       url: app.globalData.domain + 'queue/tutor/RoomInfo',
       header: {
-        token: app.globalData.token
+        token: wx.getStorageSync('token')
       },
       method: 'POST',
       success: function (res) {
@@ -168,7 +170,7 @@ Page({
     wx.request({
       url: app.globalData.domain + 'queue/tutor/getNum',
       header: {
-        token: app.globalData.token
+        token: wx.getStorageSync('token')
       },
       method: 'POST',
       success(res) {
@@ -188,7 +190,7 @@ Page({
     wx.request({
       url: app.globalData.domain + 'queue/tutor/getQueue',
       header: {
-        token: app.globalData.token
+        token: wx.getStorageSync('token')
       },
       method: 'POST',
       success(res) {
@@ -208,7 +210,7 @@ Page({
     wx.request({
       url: app.globalData.domain + 'queue/tutor/isStart',
       header: {
-        token: app.globalData.token
+        token: wx.getStorageSync('token')
       },
       method: 'POST',
       success(res) {
@@ -235,7 +237,7 @@ Page({
     wx.request({
       url: app.globalData.domain + 'queue/tutor/current',
       header: {
-        token: app.globalData.token
+        token: wx.getStorageSync('token')
       },
       method: 'POST',
       success(res) {
@@ -275,7 +277,8 @@ Page({
   },
   // 显示菜单
   showMenu(e) {
-    let openId = e.currentTarget.dataset.openID;
+    console.log(e);
+    let openId = e.currentTarget.dataset.openid;
     wx.showActionSheet({
       itemList: ['查看资料', '开始面试'],
       success(res) {
@@ -283,7 +286,7 @@ Page({
           wx.request({
             url: app.globalData.domain + 'queue/tutor/studentInfo/' + openId,
             header: {
-              token: app.globalData.token
+              token: wx.getStorageSync('token')
             },
             method: "POST",
             success(res) {
@@ -299,7 +302,7 @@ Page({
           wx.request({
             url: app.globalData.domain + 'queue/tutor/callNumber/' + openId,
             header: {
-              token: app.globalData.token
+              token: wx.getStorageSync('token')
             },
             method: "POST",
             success(res) {
@@ -400,7 +403,7 @@ Page({
       wx.request({
         url: app.globalData.domain + 'queue/tutor/setRoom',
         header: {
-          token: app.globalData.token
+          token: wx.getStorageSync('token')
         },
         method: 'POST',
         data: {
@@ -427,7 +430,7 @@ Page({
       wx.request({
         url: app.globalData.domain + `queue/tutor/bind/${_this.data.group}`,
         header: {
-          token: app.globalData.token
+          token: wx.getStorageSync('token')
         },
         method: 'POST',
         success(res) {
@@ -459,7 +462,7 @@ Page({
         url: app.globalData.domain + 'queue/tutor/start',
         method: 'POST',
         header: {
-          token: app.globalData.token
+          token: wx.getStorageSync('token')
         },
         success(res) {
           if (res.data.code == 1) {
@@ -471,6 +474,9 @@ Page({
         }
       })
     }
+  },
+  back(){
+    wx.navigateBack();
   }
 
 })
