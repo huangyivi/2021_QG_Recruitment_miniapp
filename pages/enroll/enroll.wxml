@@ -5,7 +5,9 @@
   <text class="enroll-title">报名QG工作室</text>
   <view class="{{isNull[0] ? 'infos-err' : 'infos'}}">
     <text class="">姓名</text>
-    <input data-name="myName" class="inputs {{isFocus[0]? '.focus' : ''}}" id="0" type="text" value="{{myName}}" placeholder="{{isNull[0] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[0]? 'red' : ''}}" bindinput="inputChange" bindblur="isNull" catchtap="toNormal"/>
+    <input data-name="myName" class="inputs {{isFocus[0]? '.focus' : ''}}" id="0" type="text" value="{{myName}}" placeholder="{{isNull[0] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[0]? 'red' : ''}}" bindinput="inputChange" bindblur="validateName" catchtap="toNormal"/>
+    <text style="color : #8366FC;font-size: 16px;" wx:if="{{isFocus[0]}}">*姓名只能由汉字、英文、·组成</text>
+    <text style="color : red;font-size: 16px;" wx:if="{{!isNameReady}}">*姓名格式有误</text>
   </view>
   <view class="{{isNull[1] ? 'infos-err' : 'infos'}}">
     <text class="">学号</text>

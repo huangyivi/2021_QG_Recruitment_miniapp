@@ -31,6 +31,7 @@ Page({
    */
   onLoad: function (options) {
     //设置按钮的状态
+    this.data.textInfo = this.getBtnStatus(0)
     this.setData({
       textInfo: this.getBtnStatus(0)
     })
@@ -39,88 +40,6 @@ Page({
   onShow() {
     this.getInterInfo(); //获取面试信息
   },
-
-  //根据按钮的状态进行处理，作废
-  handleStatus() {
-    let {
-      interviewNum,
-      interviewAddress,
-      interviewTeacher
-    } = this.data;
-    let {
-      status
-    } = this.data;
-    if (status == 0) {
-      //还没开始签到
-      wx.showToast({
-        title: '时间未到',
-        icon: 'none',
-        mask: false,
-      });
-      //  return ;
-
-    } else if (status == 1) {
-      //点击签到
-
-      //发送请求数据
-      interviewNum = [2, 0, 2, 1];
-      interviewTeacher = '后台组 1号面试官';
-      interviewAddress = '教学七号楼 - 777';
-      this.FrontPeople = 1;
-
-
-    } else if (status == 2) {
-      //排队中
-      if (this.FrontPeople != 0) {
-        wx.showToast({
-          title: '前面还有人,请你继续等待哦^_^',
-          icon: 'none',
-          mask: true,
-        });
-        this.FrontPeople = 0;
-        this.setData({
-          textInfo: this.getBtnStatus(status),
-        });
-        return;
-      }
-
-    } else if (status == 3) {
-      //准备面试
-
-    } else {
-      //面试中
-      wx.showModal({
-        title: '面试结束',
-        content: '请继续关注我们的后续动态和通知感谢您对QG工作室的支持',
-        showCancel: false,
-        cancelText: '取消',
-        cancelColor: '#000000',
-        confirmText: '返回主页',
-        confirmColor: '#8366FC',
-        success: (result) => {
-          if (result.confirm) {
-            wx.navigateBack({
-              delta: 1
-            });
-          }
-        },
-      });
-      return;
-    }
-
-    //准备进入未定义状态，需从头开始，改值
-    if (status == 4) {
-      status = -1;
-    }
-    this.setData({
-      status: ++status,
-      textInfo: this.getBtnStatus(status),
-      interviewAddress,
-      interviewTeacher,
-      interviewNum,
-    });
-  },
-
   //点击签到
   handleRecord() {
     let { status } = this.data;
@@ -131,7 +50,7 @@ Page({
       this.requestPOST({
         url: 'queue/stu/signIn'
       }).then(res => {
-        console.log(res);
+        // console.log(res);
         const { code, msg } = res.data;
         //签到不成功
         if (code == 0) {
@@ -142,12 +61,19 @@ Page({
           return false;
         }
         //签到成功
+        let num = this.dealCode(res.data.data.id);
+        this.data.interviewAddress = res.data.data.place;
+        this.data.interviewNum = num;
+        this.data.FrontPeople = res.data.data.frontCount;
         this.setData({
+          interviewAddress : res.data.data.place,
+          interviewNum : num,
+          FrontPeople : res.data.data.frontCount,
           status: ++status,
           textInfo: this.getBtnStatus(status),
         });
       }).catch(err => {
-        console.log(err);
+        // console.log(err);
       })
     } else if (status == 3) {
       //开始面试，祝她面试顺利
@@ -164,7 +90,7 @@ Page({
     this.requestPOST({
       url: 'queue/stu/info'
     }).then(res => {
-      console.log(res);
+      // console.log(res);
       //未报名
       if (res.data.code == 0) {
         wx.showToast({
@@ -182,12 +108,12 @@ Page({
       if (this.data.status != 4) {
         //获取openId
         this.requestPOST({ url: 'api/wx/openId' }).then(res => {
-          console.log(res);
+          // console.log(res);
           const openId = res.data.data;
           //建立socket连接
           this.handleSocket(openId);
         }).catch(err => {
-          console.log(err);
+          // console.log(err);
         });
       }
 
@@ -195,7 +121,7 @@ Page({
       // this.ifOpenRecord(this.data.interviewTime);
 
     }).catch(err => {
-      console.log(err);
+      // console.log(err);
     })
   },
 
@@ -226,7 +152,12 @@ Page({
       });
     }
 
-    this.FrontPeople = frontCount; //前面排队人数
+    this.data.FrontPeople = frontCount; //前面排队人数
+    this.data.status = status;
+    this.data.interviewNum = this.dealCode(id);
+    this.data.interviewTeacher = tutor;
+    this.data.interviewTime = formatDate(time);
+    this.data.interviewAddress = place;
     this.setData({
       status,
       interviewAddress: place, //面试地点
@@ -255,7 +186,7 @@ Page({
     wx.connectSocket({
       url: app.globalData.socket+ 'student/' + openId,
       success: () => {
-        console.log('连接成功');
+        // console.log('连接成功');
       }
     });
 
@@ -268,24 +199,27 @@ Page({
 
     //接收信息
     wx.onSocketMessage((res) => {
-      console.log(res);
+      // console.log(res);
       if (res.msgType == 2) {
         //类型为2时，只更新前面排队人数
-        const { frontCount } = res;
-        this.FrontPeople = frontCount;
+        const { frontCount } = JSON.parse(res.data);
+        this.data.FrontPeople = frontCount;
+        this.data.textInfo = this.getBtnStatus(2);
         this.setData({
-          textInfo: getBtnStatus(2)
+          textInfo: this.getBtnStatus(2),
+          FrontPeople : frontCount
         })
 
       } else {
         //类型为1时，更新状态
-        this.updateStatus(res);
+        // console.log(JSON.parse(res.data));
+        this.updateStatus(JSON.parse(res.data));
       }
     });
 
     //连接失败
     wx.onSocketError(() => {
-      console.log('连接失败');
+      // console.log('连接失败');
     });
   },
 
@@ -368,25 +302,6 @@ Page({
       });
     })
   },
-
-  //判断是否开启签到,测试用，现废弃
-  ifOpenRecord(recordTime) {
-    recordTime = new Date(recordTime).valueOf();
-    //之后可能用socket来判断，实时通知
-    let timer = setInterval(() => {
-      let time = new Date();
-      let now = time.valueOf();
-      console.log(now, recordTime);
-      if (now > recordTime) {
-        clearInterval(timer);
-        this.setData({
-          status: 1,
-          textInfo: this.getBtnStatus(1)
-        })
-      }
-    }, 3000);
-  },
-
   back(){
     wx.navigateBack();
   }

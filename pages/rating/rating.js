@@ -132,16 +132,21 @@ Page({
           openId: _this.data.student.openId
         },
         success(res) {
+          // console.log(res);
           if (res.data.code == 1) {
             _this.data.isCommented = true;
             _this.setData({
               isCommented: true
             });
+            wx.showModal({
+              showCancel : false,
+              title : "评价成功！"
+            })
             wx.hideLoading();
           }
           else{
             wx.showModal({
-              showCancel : true,
+              showCancel : false,
               title : "评价失败！"
             })
             wx.hideLoading()

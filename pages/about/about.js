@@ -97,40 +97,40 @@ Page({
     ]
   },
   changePage(e) {
+    this.animate('.pane-header', [{
+      opacity: 0
+    }], 0);
+    this.animate('.pane-text', [{
+      opacity: 0
+    }], 0);
+    this.animate('.control-pane', [{
+        opacity: 1
+      }, {
+        opacity: 0,
+        translateY: 10
+      },
+      {
+        opacity: 1,
+        translateY: 0
+      }
+    ], 1000, () => {
       this.animate('.pane-header', [{
         opacity: 0
-      }], 0);
+      }, {
+        opacity: 1
+      }], 500);
       this.animate('.pane-text', [{
         opacity: 0
-      }], 0);
-      this.animate('.control-pane', [{
-          opacity: 1
-        }, {
-          opacity: 0,
-          translateY: 10
-        },
-        {
-          opacity: 1,
-          translateY: 0
-        }
-      ], 1000, () => {
-        this.animate('.pane-header', [{
-          opacity: 0
-        }, {
-          opacity: 1
-        }], 500);
-        this.animate('.pane-text', [{
-          opacity: 0
-        }, {
-          opacity: 1
-        }], 500);
-        this.StopMoving();
-      })
-      let page = e.currentTarget.dataset.page;
-      this.data.pageIndex = page;
-      this.setData({
-        pageIndex: page
-      })
+      }, {
+        opacity: 1
+      }], 500);
+      this.StopMoving();
+    })
+    let page = e.currentTarget.dataset.page;
+    this.data.pageIndex = page;
+    this.setData({
+      pageIndex: page
+    })
   },
   toHome() {
     wx.navigateTo({
@@ -143,32 +143,30 @@ Page({
     })
   },
   onShow() {
-    setInterval(()=>{
-      this.animate('.purple',[{
+    setInterval(() => {
+      this.animate('.purple', [{
         translateY: 0
-      },{
+      }, {
         translateY: 10
-      },{
+      }, {
         translateY: 0
-      }],4000)
-    },4000)
+      }], 4000)
+    }, 4000)
     this.data.moving = false;
     this.setData({
-      moving : false
+      moving: false
     })
     let _this = this;
-    setInterval(()=>{
-    this.animate('.group-keywords',[
-      {
+    setInterval(() => {
+      this.animate('.group-keywords', [{
         translateY: 0
-      },{
+      }, {
         translateY: 10
-      },{
+      }, {
         translateY: 0
-      }
-    ],2000)
+      }], 2000)
 
-    // 下方文字摆动
+      // 下方文字摆动
       _this.animate('.scroll', [{
           translateY: 0
         },
@@ -178,28 +176,28 @@ Page({
         {
           translateY: 0
         }
-      ], 1000,()=>{
+      ], 1000, () => {
         this.data.moving = false;
         this.setData({
-          moving : false
+          moving: false
         })
       })
     }, 2000);
     this.data.pageIndex = 0;
-          this.groupIndex = -1;
-          this.setData({
-            pageIndex: 0,
-            groupIndex: -1
-          })
-          this.animate('.control-pane', [{
-              opacity: 0,
-              translateY: -50
-            },
-            {
-              opacity: 1,
-              translateY: 0
-            },
-          ], 1000)
+    this.groupIndex = -1;
+    this.setData({
+      pageIndex: 0,
+      groupIndex: -1
+    })
+    this.animate('.control-pane', [{
+        opacity: 0,
+        translateY: -50
+      },
+      {
+        opacity: 1,
+        translateY: 0
+      },
+    ], 1000)
   },
   touchStart(e) {
     this.setData({
@@ -213,8 +211,48 @@ Page({
       let turn = '';
       if (y - this.data.touchY > 50) { //下滑
         turn = "down";
+        // 重置状态
+        this.animate('.group-items', [{
+          opacity: 0,
+        }], 0)
+        this.animate('.group-logo', [{
+          opacity: 0,
+        }], 0)
+        this.animate('.join-pane', [{
+          opacity: 0,
+          rotateY: 90
+        }], 0)
+        this.animate('.join-pane', [{
+            opacity: 0,
+            rotateY: 90
+          },
+          {
+            opacity: 1,
+            rotateY: 0
+          }
+        ], 1000, () => {
+          this.StopMoving();
+        })
       } else if (y - this.data.touchY < -50) { //上滑
         turn = "up";
+        // 重置状态
+        this.animate('.group-items', [{
+          opacity: 0,
+        }], 0)
+        this.animate('.group-logo', [{
+          opacity: 0,
+        }], 0)
+        this.animate('.join-pane', [{
+            opacity: 0,
+            rotateY: 90
+          },
+          {
+            opacity: 1,
+            rotateY: 0
+          }
+        ], 1000, () => {
+          this.StopMoving();
+        })
       }
       //根据方向进行操作
       if (turn == 'up') {
@@ -274,33 +312,10 @@ Page({
                 translateX: 0,
                 rotate: 15
               },
-            ], 500, () => {      
-                this.StopMoving();
+            ], 500, () => {
+              this.StopMoving();
             })
           });
-          // 重置状态
-          this.animate('.group-items', [{
-            opacity: 0,
-          }], 0)
-          this.animate('.group-logo', [{
-            opacity: 0,
-          }], 0)
-          this.animate('.join-pane', [{
-            opacity: 0,
-            rotateY: 90
-          }], 0)
-          this.animate('.join-pane', [{
-              opacity: 0,
-              rotateY: 90
-            },
-            {
-              opacity: 1,
-              rotateY: 0
-            }
-          ], 1000, () => {
-            this.StopMoving();
-
-          })
         }
 
       } else if (turn == 'down') {
@@ -364,29 +379,29 @@ Page({
                 translateX: 0,
                 rotate: 10
               },
-            ], 500,() => {
+            ], 500, () => {
               this.StopMoving();
             })
           });
 
           // 重置状态
-          this.animate('.group-items', [{
-            opacity: 0,
-          }], 0)
-          this.animate('.group-logo', [{
-            opacity: 0,
-          }], 0)
+          // this.animate('.group-items', [{
+          //   opacity: 0,
+          // }], 0)
+          // this.animate('.group-logo', [{
+          //   opacity: 0,
+          // }], 0)
         }
       }
     }
   },
   Moving() {
-      this.data.moving = true;
-      this.setData({
-        moving: true
-      })
+    this.data.moving = true;
+    this.setData({
+      moving: true
+    })
   },
-  StopMoving(){
+  StopMoving() {
     this.data.moving = false;
     this.setData({
       moving: false

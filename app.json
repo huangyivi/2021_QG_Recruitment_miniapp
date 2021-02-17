@@ -7,7 +7,6 @@
     "pages/more/more",
     "pages/interview/interview",
     "pages/index/index",
-    "pages/card/card",
     "pages/about/about"
   ],
   "window":{

@@ -30,6 +30,7 @@ Page({
     isNull: [false, false, false, false, false, false, false,false],
     isFocus: [false, false, false, false, false, false, false,false],
     // 字段是否合格
+    isNameReady: true,
     isIdReady: true,
     isGradePointReady: true,
     isPhoneReady: true,
@@ -42,7 +43,7 @@ Page({
       url: 'https://recruit.qgailab.com/recruit/academy',
       method: 'GET',
       success(res){
-        console.log(res.data);
+        // console.log(res.data);
        _this.data.colleges = res.data.academy;
        _this.data.majors = res.data.major;
        _this.setData({
@@ -212,11 +213,11 @@ Page({
       })
     }
   },
-  // 检验QQ是否符合规范
+  // 检验班级是否符合规范
   validateClass(e) {
     if (this.isNull(e)) return;
     let Class = this.data.myClass;
-    console.log(Class);
+    // console.log(Class);
     if (/^[0-9]+$/.test(Class) && 0 < Class && Class < 50) {
       this.data.isClassReady = true;
       this.setData({
@@ -227,6 +228,28 @@ Page({
       this.data.isClassReady = false;
       this.setData({
         isClassReady: false
+      })
+      // 重置状态
+      this.data.isFilled = false;
+      this.setData({
+        'isFilled': false
+      })
+    }
+  },
+  // 检验姓名是否符合规范
+  validateName(e) {
+    if (this.isNull(e)) return;
+    let Name = this.data.myName;
+    // console.log(Name);
+    if (/^(?:[\u4e00-\u9fa5]+)(?:·[\u4e00-\u9fa5]+)*$|^[a-zA-Z0-9]+\s?[\.·\-()a-zA-Z]*[a-zA-Z]+$/.test(Name)) {
+      this.data.isNameReady = true;
+      this.setData({
+        isNameReady: true
+      })
+    } else {
+      this.data.isNameReady = false;
+      this.setData({
+        isNameReady: false
       })
       // 重置状态
       this.data.isFilled = false;
@@ -253,9 +276,10 @@ Page({
         majorClass: this.data.majors[this.data.collegeIndex][this.data.majorIndex] + this.data.myClass + '班',
         phoneNum: this.data.myPhone,
         qq: this.data.myQQ,
-        explaination: this.data.mySituation,
+        explanation: this.data.mySituation,
         selfEvaluation: this.data.myIntroduction,
         groupId: groupId,
+        group: this.data.directions[this.data.directionIndex]
       }
       wx.request({
         url: 'https://recruit.qgailab.com/recruit/signup',
@@ -277,11 +301,11 @@ Page({
               }
             })
           } else {
-            console.log(res);
+            // console.log(res);
             wx.showModal({
               showCancel: false,
               title: '报名失败',
-              content: '*服务器开小差了~\r\n请联系管理员',
+              content: '*' + res.data.message,
               confirmText: '返回填写',
               confirmColor: '#8366FC'
             })

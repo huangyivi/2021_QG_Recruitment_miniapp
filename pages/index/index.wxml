@@ -12,8 +12,8 @@
      <image mode="widthFix" src="../../static/images/index_btn/logo.png"></image>
       <view>了解我们</view>
     </navigator>
-    <view catchtap="{{isOpen?'toInterview' : 'alert'}}" class="btn" wx:if="{{isTutor == -1}}">
-     <image mode="widthFix" src="../../static/images/index_btn/interview.png"></image>
+    <view catchtap="{{isOpen?'toInterview' : 'alert'}}" class="btn open" wx:if="{{isTutor == -1}}">
+     <image mode="widthFix" src="../../static/images/index_btn/interview_open.png"></image>
       <view>面试</view>
     </view>
     <view catchtap="toCalling" class="btn open" wx:if="{{isTutor == 1}}">

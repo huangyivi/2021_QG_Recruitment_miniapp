@@ -2,6 +2,7 @@
 App({
   globalData: {
     userInfo: null,
+    // domain: 'http://39.98.41.126:30002/',
     domain: 'https://recruit.qgailab.com/queue_api/',
     socket: 'wss://recruit.qgailab.com/qgWebsocket/queue/',
     // 识别用户身份：1为导师，-1为学生

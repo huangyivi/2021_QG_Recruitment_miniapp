@@ -12,7 +12,7 @@
       <text class="rating-ready">面试中...</text>
     </view>
     <view class="rating-line">
-      <text>评分</text>
+      <text>评分（百分制）</text>
       <input type="number" data-name="grade" bindinput="changeInput" bindblur="checkIsReady"/>
     </view>
     <view class="rating-line">

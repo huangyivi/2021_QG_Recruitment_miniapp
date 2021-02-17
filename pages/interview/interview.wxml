@@ -16,15 +16,15 @@
         </view>
         <view hidden="{{status !== 0}}" class="interview-time interview-item">
             <view class="title">开始签到时间</view>
-            <view class="time fill">{{interviewTime}}</view>
+            <view class="time fill">{{interviewTime?interviewTime : '等待后续通知'}}</view>
         </view>
         <view hidden="{{status === 0}}" class="interview-address interview-item">
             <view class="title">面试地点</view>
-            <view class="address fill">{{interviewAddress}}</view>
+            <view class="address fill">{{interviewAddress?interviewAddress : '签到后显示地点'}}</view>
         </view>
         <view hidden="{{status < 2}}" class="interview-teacher interview-item">
             <view class="title">面试导师</view>
-            <view class="teacher fill">{{interviewTeacher}}</view>
+            <view class="teacher fill">{{interviewTeacher?interviewTeacher : '等待导师叫号'}}</view>
         </view>
         <view class="interview-btn-wrap">
             <view class="btn {{status === 1?'purple-btn':''}} {{status === 3?'green-btn':''}}" bindtap="handleRecord">

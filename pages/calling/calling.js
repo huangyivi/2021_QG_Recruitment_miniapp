@@ -28,62 +28,73 @@ Page({
     isReady: false
   },
   onShow() {
+    wx.showLoading({
+      title: '正在获取信息',
+    })
     this.getRoomInfo();
     this.getTeacherId();
-    this.getInterviewQueue();
     this.isStartInterview();
+    this.getInterviewQueue();
     this.getTeacherQueue();
 
     let _this = this;
     wx.connectSocket({
       url: app.globalData.socket+ 'tutor/' + app.globalData.openId,
       success(){
-        console.log('连接成功');
+        // console.log('连接成功');
       },
       fail(){
-        console.log('连接失败');
+        // console.log('连接失败');
       }
     })
     wx.onSocketMessage((res) => {
-      console.log('有新消息拉');
-      console.log(res);
-      if(res.msgType == 1){
+      // console.log('有新消息拉');
+      let data = JSON.parse(res.data);
+      // console.log(data);
+      if(data.msgType == 1){
         // 面试队伍更新
-        let _queue = _this.data.interviewer;
-        for(let i=0;i<_queue.length;i++){
-          if(_queue[i].id == res.id){
-            _queue.splice(i,1);
-            _this.data.queue = _queue;
-            _this.setData({
-              queue : _queue
-            })
-            break;
-          }
-        }
-      }else if(res.msgType == 2){
+        // let _queue = _this.data.interviewer;
+        // for(let i=0;i<_queue.length;i++){
+        //   if(_queue[i].id == res.id){
+        //     _queue.splice(i,1);
+        //     _this.data.queue = _queue;
+        //     _this.setData({
+        //       queue : _queue
+        //     })
+        //     break;
+        //   }
+        // }
+        this.getInterviewQueue();
+      }else if(data.msgType == 2){
         // 某导师的学生更新
-        let _queue = _this.data.teacherQueue;
-        for(let j=0;j<_queue.length;j++){
-          if(_queue[j].num == res.num){
-            let student = res.student;
-            _queue[j].id = student.id;
-            _queue[j].name = student.name;
-            _queue[j].openId = student.openId;
-            _this.data.teacherQueue[j] = _queue[j];
-            _this.setData({
-              "teacherQueue[j]" : _queue[j]
-            })
-          }
-          // 如果是本队的学生更新，更新本地暂存名单
-          // if(_queue[j].num == _this.data.group){
-          //   let student = res.data.student;
-          //   app.globalData.current.id = student.id;
-          //   app.globalData.current.name = student.name;
-          //   app.globalData.current.openId = student.openId;
-          // }
-        }
+        // let _queue = _this.data.teacherQueue;
+        // for(let j=0;j<_queue.length;j++){
+        //   if(_queue[j].num == res.num){
+        //     let student = res.student;
+        //     _queue[j].id = student.id;
+        //     _queue[j].name = student.name;
+        //     _queue[j].openId = student.openId;
+        //     _this.data.teacherQueue[j] = _queue[j];
+        //     _this.setData({
+        //       "teacherQueue[j]" : _queue[j]
+        //     })
+        //   }
+        //   // 如果是本队的学生更新，更新本地暂存名单
+        //   // if(_queue[j].num == _this.data.group){
+        //   //   let student = res.data.student;
+        //   //   app.globalData.current.id = student.id;
+        //   //   app.globalData.current.name = student.name;
+        //   //   app.globalData.current.openId = student.openId;
+        //   // }
+        // }
+        this.getTeacherQueue();
       }
     })
+  },
+  // 下拉刷新
+  onPullDownRefresh(){
+    this.getInterviewQueue();
+    this.getTeacherQueue();
   },
   // 跳转设置页面
   async toSetting() {
@@ -194,6 +205,7 @@ Page({
       },
       method: 'POST',
       success(res) {
+        wx.hideLoading();
         if (res.data.code == 1) {
           let queue = res.data.data;
           _this.data.interviewer = queue;
@@ -201,6 +213,18 @@ Page({
             interviewer: queue
           })
         }
+      },
+      fail(res){
+        wx.hideLoading();
+        wx.showModal({
+          showCancel: false,
+          title: '获取面试队列失败，请重试',
+          success(res){
+            wx.redirectTo({
+              url: '../calling/calling',
+            })
+          }  
+        })
       }
     })
   },
@@ -241,6 +265,7 @@ Page({
       },
       method: 'POST',
       success(res) {
+        wx.hideLoading();
         if (res.data.code == 1) {
           let data = res.data.data;
           for (let i = 0; i < data.length; i++) {
@@ -254,6 +279,18 @@ Page({
             teacherQueue: data
           })
         }
+      },
+      fail(res){
+        wx.hideLoading();
+        wx.showModal({
+          showCancel: false,
+          title: '获取导师队列失败，请重试',
+          success(res){
+            wx.redirectTo({
+              url: '../calling/calling',
+            })
+          }  
+        })
       }
     })
   },
@@ -277,7 +314,6 @@ Page({
   },
   // 显示菜单
   showMenu(e) {
-    console.log(e);
     let openId = e.currentTarget.dataset.openid;
     wx.showActionSheet({
       itemList: ['查看资料', '开始面试'],
@@ -306,10 +342,17 @@ Page({
             },
             method: "POST",
             success(res) {
+              // console.log(res);
               if (res.data.code == 1) {
                 app.globalData.current = res.data.data;
                 wx.navigateTo({
                   url: '../rating/rating',
+                })
+              }else{
+                wx.showModal({
+                  showCancel: false,
+                  title: '叫号失败',
+                  content: res.data.msg
                 })
               }
             }
