@@ -1,11 +1,16 @@
-/* pages/about/about.wxss */
+/* pages/about1/about1.wxss */
 page {
   width: 100%;
   height: 100%;
 }
 
+.page-container{
+  width: 100%;
+  height: 90%;
+}
+
+
 .about-container {
-  /* z-index: 0; */
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -30,7 +35,7 @@ page {
 
 /* 顶部按钮 */
 .btn-pane {
-  margin: 60rpx 0;
+  margin: 100rpx 0 30rpx 0;
   width: 100%;
   height: 80rpx;
   display: flex;
@@ -59,33 +64,14 @@ page {
   background-size: 100%;
 }
 
-.to-enroll {
-  padding: 0 20rpx;
-  width: 170rpx;
-  height: 100%;
-  background: rgba(256, 256, 256, 0.6);
-  border-radius: 10px;
-  color: #6B74FF;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.enroll-icon {
-  background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItZWRpdC0zIj48cGF0aCBkPSJNMTIgMjBoOSI+PC9wYXRoPjxwYXRoIGQ9Ik0xNi41IDMuNWEyLjEyMSAyLjEyMSAwIDAgMSAzIDNMNyAxOWwtNCAxIDEtNEwxNi41IDMuNXoiPjwvcGF0aD48L3N2Zz4=");
-  background-size: 100%;
-
-  width: 40rpx;
-  height: 40rpx;
-}
 
 /* 主面板 */
 .control-pane {
   /* z-index: 1; */
   width: 100%;
-  height: 65%;
+  height: 72%;
   background: rgba(256, 256, 256, 0.6);
-  box-shadow: 8px 14px 21px 0px rgba(184, 179, 255, 0.33);
+  box-shadow: 0px 14px 21px 0px rgba(184, 179, 255, 0.33);
   border-radius: 20px;
 }
 
@@ -133,7 +119,7 @@ page {
 
 .select-pane {
   position: absolute;
-  top: 90%;
+  top: 92%;
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
@@ -162,14 +148,17 @@ page {
 
 
 
+
+
+
 /* 小组介绍 */
 .group-pane {
   /* z-index: 1; */
   width: 100%;
-  height: 65%;
+  height: 72%;
   /* backdrop-filter: blur(5px); */
   background: rgba(256, 256, 256, 0.6);
-  box-shadow: 8px 14px 21px 0px rgba(184, 179, 255, 0.33);
+  box-shadow: 0px 14px 21px 0px rgba(184, 179, 255, 0.33);
   border-radius: 20px;
   margin: 10rpx 0;
   display: flex;
@@ -227,21 +216,22 @@ page {
   width: 100%;
 }
 
+
 .group-logo {
   position: fixed;
   width: 270rpx;
   height: 270rpx;
   /* transform: rotate(10deg); */
   bottom: 120rpx;
-  right: 5%;
+  right: 0;
 }
 
 .group-keywords {
   position: fixed;
   width: 230rpx;
   height: 230rpx;
-  left: 8%;
-  bottom: 80rpx;
+  left: 0%;
+  bottom: 120rpx;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -260,10 +250,9 @@ page {
   margin-left: auto;
 }
 
-
 .join-pane{
   width: 100%;
-  height: 100%;
+  height: 90%;
   display: flex;
   margin-top: 10rpx;
   flex-direction: column;
@@ -276,8 +265,9 @@ page {
   height: auto;
 }
 
-
 .bar{
+  transform: translateY(-50%);
+  top: 50%;
   left: 25rpx;
   position: fixed;
   width: 40rpx;
@@ -301,6 +291,11 @@ page {
 }
 
 
+.bar-active-purple{
+  background: rgb(148,122,247)
+}
+
+
 .group-botm{
   position: fixed;
   width: 100%;
@@ -319,9 +314,4 @@ page {
   top: 270rpx;
   right: 30rpx;
   /* z-index: 0; */
-}
-
-
-.bar-active-purple{
-  background: rgb(148,122,247)
 }

@@ -98,6 +98,13 @@
         {
           "name": "pages/about/about",
           "pathName": "pages/about/about",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/about2/about2",
+          "pathName": "pages/about2/about2",
+          "query": "",
           "scene": null
         }
       ]

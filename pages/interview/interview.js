@@ -40,6 +40,9 @@ Page({
   onShow() {
     this.getInterInfo(); //获取面试信息
   },
+  onPullDownRefresh(){
+    this.getInterInfo(); //获取面试信息
+  },
   //点击签到
   handleRecord() {
     let { status } = this.data;
@@ -58,6 +61,20 @@ Page({
             title: msg,
             icon: 'none'
           })
+          return false;
+        }else if(code == -1){
+          wx.showModal({
+              title: "请先登录！",
+              content: "*点击确定返回授权页面",
+              showCancel: false,
+              success(res){
+                if(res.confirm){
+                  wx.redirectTo({
+                    url: '../login/login',
+                  })
+                }
+              }
+            })
           return false;
         }
         //签到成功
@@ -91,6 +108,7 @@ Page({
       url: 'queue/stu/info'
     }).then(res => {
       // console.log(res);
+      wx.stopPullDownRefresh();
       //未报名
       if (res.data.code == 0) {
         wx.showToast({
@@ -98,6 +116,20 @@ Page({
           icon: 'none',
           mask: false
         });
+        return;
+      }else if(res.data.code == -1){
+        wx.showModal({
+              title: "请先登录！",
+              content: "*点击确定返回授权页面",
+              showCancel: false,
+              success(res){
+                if(res.confirm){
+                  wx.redirectTo({
+                    url: '../login/login',
+                  })
+                }
+              }
+            })
         return;
       }
 
@@ -109,6 +141,20 @@ Page({
         //获取openId
         this.requestPOST({ url: 'api/wx/openId' }).then(res => {
           // console.log(res);
+          if(res.data.code == -1){
+            wx.showModal({
+              title: "请先登录！",
+              content: "*点击确定返回授权页面",
+              showCancel: false,
+              success(res){
+                if(res.confirm){
+                  wx.redirectTo({
+                    url: '../login/login',
+                  })
+                }
+              }
+            })
+          }
           const openId = res.data.data;
           //建立socket连接
           this.handleSocket(openId);
@@ -129,10 +175,10 @@ Page({
   updateStatus(res) {
     let { time, id, place, status, frontCount, tutor } = res;
     //转换为对应的状态
-    status = this.getTrueStatus(status);
+    let mystatus = this.getTrueStatus(status);
 
-    let textInfo = this.getBtnStatus(status);
-    if (status == 4) {
+    let textInfo = this.getBtnStatus(mystatus);
+    if (mystatus == 4) {
       //面试结束,弹出弹框
       wx.showModal({
         title: '面试结束',
@@ -153,13 +199,13 @@ Page({
     }
 
     this.data.FrontPeople = frontCount; //前面排队人数
-    this.data.status = status;
+    this.data.status = mystatus;
     this.data.interviewNum = this.dealCode(id);
     this.data.interviewTeacher = tutor;
     this.data.interviewTime = formatDate(time);
     this.data.interviewAddress = place;
     this.setData({
-      status,
+      status: mystatus,
       interviewAddress: place, //面试地点
       interviewNum: this.dealCode(id),  //编号
       interviewTeacher: tutor,  //面试导师

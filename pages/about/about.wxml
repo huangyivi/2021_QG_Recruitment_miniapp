@@ -1,84 +1,85 @@
-<view class="about-container"  bindtouchstart="touchStart" bindtouchend="touchEnd">
+<view class="about-container" bindtouchstart="touchStart" bindtouchend="touchEnd">
   <view class="central-part">
-    <view class="btn-pane" >
+    <view class="btn-pane">
       <view class="to-home">
         <view class="home-icon" catchtap="toHome"></view>
       </view>
-      <!-- <view class="to-enroll" catchtap="toEnroll">
-        <view class="enroll-icon"></view>
-        <view>我要报名</view>
-      </view> -->
     </view>
-    <view class="control-pane" wx:for="{{about}}" wx:for-item="item" wx:for-index="idx" wx:if="{{pageIndex == idx}}">
-      <view class="pane-header">
-        <image class="header-image" src="{{item.header}}" mode="heightFix">
-        </image>
-      </view>
-      <view class="pane-content">
-        <text class="pane-text"
-          decode="{{true}}">&emsp;&emsp;{{item.introduction}}</text>
-        <view class="select-pane">
-          <image data-page="0" catchtap="changePage" class="select-icon" src="{{item.btn[0]}}">
-          </image>
-          <image data-page="1" catchtap="changePage" class="select-icon" src="{{item.btn[1]}}">
-          </image>
-          <image data-page="2" catchtap="changePage" class="select-icon" src="{{item.btn[2]}}">
-          </image>
-          <image data-page="3" catchtap="changePage" class="select-icon" src="{{item.btn[3]}}">
+    <swiper class="page-container" vertical="true" current="{{currentIndex}}" duration="1000" easing-function="easeOutCubic" bindchange="changePage">
+      <swiper-item catchtouchmove="stopMove">
+        <view class="control-pane">
+          <view class="pane-header">
+            <image class="header-image" src="{{about[pageIndex].header}}" mode="heightFix">
+            </image>
+          </view>
+          <view class="pane-content">
+            <text class="pane-text" decode="{{true}}">&emsp;&emsp;{{about[pageIndex].introduction}}</text>
+            <view class="select-pane">
+              <image data-page="0" catchtap="changePage" class="select-icon" src="{{about[pageIndex].btn[0]}}">
+              </image>
+              <image data-page="1" catchtap="changePage" class="select-icon" src="{{about[pageIndex].btn[1]}}">
+              </image>
+              <image data-page="2" catchtap="changePage" class="select-icon" src="{{about[pageIndex].btn[2]}}">
+              </image>
+              <image data-page="3" catchtap="changePage" class="select-icon" src="{{about[pageIndex].btn[3]}}">
+              </image>
+            </view>
+          </view>
+        </view>
+      </swiper-item>
+      <swiper-item catchtouchmove="stopMove" wx:for="{{groups}}" wx:for-item="item" wx:for-index="idx">
+        <view class="group-pane">
+          <view class="group-left">
+            <view class="group-header">
+              <image class="group-name" mode="aspectFit" src="{{item.name}}">
+              </image>
+            </view>
+            <text decode="{{true}}" class="group-info">
+              &emsp;&emsp;{{item.introduction}}
+            </text>
+          </view>
+          <view class="group-right">
+            <image class="group-intro" mode="heightFix" src="../../static/images/right.png"></image>
+          </view>
+        </view>
+        <view class="group-botm">
+            <image class="group-logo" src="{{item.logo}}"></image>
+            <view class="group-keywords">
+              <view class="group-items">{{item.keywords[0]}}</view>
+              <view class="group-items right">{{item.keywords[1]}}</view>
+              <view class="group-items">{{item.keywords[2]}}</view>
+            </view>
+          </view>
+      </swiper-item>
+      <swiper-item catchtouchmove="stopMove">
+        <view class="join-pane">
+          <image mode="widthFix" class="join-card" src="../../static/images/join/join.png" catchtap="toEnroll"></image>
+          <image mode="widthFix" class="join-btn" src="../../static/images/join/join_btn.png" catchtap="toEnroll">
           </image>
         </view>
-      </view>
+      </swiper-item>
 
+
+    </swiper>
+
+
+    <view class="scroll" wx:if="{{currentIndex != 8}}">
+      <text>上滑查看其他小组介绍</text>
     </view>
 
-    <!-- 各小组介绍 -->
-    <view class="group-pane" wx:for="{{groups}}" wx:for-item="item" wx:for-index="idx" wx:if="{{groupIndex == idx}}">
-      <view class="group-left">
-        <view class="group-header">
-          <image class="group-name" mode="aspectFit" src="{{item.name}}">
-          </image>
-        </view>
-        <text decode="{{true}}" class="group-info">
-          &emsp;&emsp;{{item.introduction}}
-        </text>
-      </view>
-      <view class="group-right">
-        <image class="group-intro" mode="heightFix" src="../../static/images/right.png"></image>
-      </view>
+    <view class="bar" wx:if="{{currentIndex != 8}}">
+      <view class="bar-item {{currentIndex == 0?'bar-active-purple' : ''}}"></view>
+      <view class="bar-item {{currentIndex == 1?'bar-active' : ''}}"></view>
+      <view class="bar-item {{currentIndex == 2?'bar-active' : ''}}"></view>
+      <view class="bar-item {{currentIndex == 3?'bar-active' : ''}}"></view>
+      <view class="bar-item {{currentIndex == 4?'bar-active' : ''}}"></view>
+      <view class="bar-item {{currentIndex == 5?'bar-active' : ''}}"></view>
+      <view class="bar-item {{currentIndex == 6?'bar-active' : ''}}"></view>
+      <view class="bar-item {{currentIndex == 7?'bar-active' : ''}}"></view>
     </view>
 
-    <view class="join-pane" wx:if="{{groupIndex == 7}}" >
-      <image mode="widthFix" class="join-card" src="../../static/images/join/join.png" catchtap="toEnroll"></image>
-      <image mode="widthFix" class="join-btn" src="../../static/images/join/join_btn.png" catchtap="toEnroll"></image>
-    </view>
 
-    <view class="group-botm" wx:for="{{groups}}" wx:for-item="item" wx:for-index="idx" wx:if="{{groupIndex == idx}}">
-      <image class="group-logo" src="{{item.logo}}"></image>
-      <view class="group-keywords">
-        <view class="group-items">{{item.keywords[0]}}</view>
-        <view class="group-items right">{{item.keywords[1]}}</view>
-        <view class="group-items">{{item.keywords[2]}}</view>
-      </view>
-    </view>
+    <view class="purple"></view>
   </view>
 
-  <view class="scroll" wx:if="{{groupIndex != 7}}">
-    <text>上滑查看其他小组介绍</text>
-  </view>
-  <!-- <view class="scroll" wx:if="{{groupIndex == 7}}">
-    <text>上滑返回团队介绍</text>
-  </view> -->
-  <view class="bar" wx:if="{{groupIndex != 7}}">
-    <view class="bar-item {{pageIndex == 0?'bar-active-purple' : ''}}"></view>
-    <view class="bar-item {{groupIndex == 0?'bar-active' : ''}}"></view>
-    <view class="bar-item {{groupIndex == 1?'bar-active' : ''}}"></view>
-    <view class="bar-item {{groupIndex == 2?'bar-active' : ''}}"></view>
-    <view class="bar-item {{groupIndex == 3?'bar-active' : ''}}"></view>
-    <view class="bar-item {{groupIndex == 4?'bar-active' : ''}}"></view>
-    <view class="bar-item {{groupIndex == 5?'bar-active' : ''}}"></view>
-    <view class="bar-item {{groupIndex == 6?'bar-active' : ''}}"></view>
-  </view>
-
-
-  <view class="purple"></view>
 </view>

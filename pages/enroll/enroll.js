@@ -132,7 +132,7 @@ Page({
   validateId(e) {
     if (this.isNull(e)) return;
     let id = this.data.myId;
-    if (/^3120|3220\d{6}$/.test(id)) {
+    if (id.length == 10) {
       this.data.isIdReady = true;
       this.setData({
         isIdReady: true
@@ -174,7 +174,7 @@ Page({
   validatePhone(e) {
     if (this.isNull(e)) return;
     let phone = this.data.myPhone;
-    if (/^1[3|4|5|7|8|9]\d{9}$/.test(phone)) {
+    if (phone.length == 11) {
       this.data.isPhoneReady = true;
       this.setData({
         isPhoneReady: true
@@ -241,7 +241,7 @@ Page({
     if (this.isNull(e)) return;
     let Name = this.data.myName;
     // console.log(Name);
-    if (/^(?:[\u4e00-\u9fa5]+)(?:·[\u4e00-\u9fa5]+)*$|^[a-zA-Z0-9]+\s?[\.·\-()a-zA-Z]*[a-zA-Z]+$/.test(Name)) {
+    if (Name.length < 21 && Name.length > 0) {
       this.data.isNameReady = true;
       this.setData({
         isNameReady: true

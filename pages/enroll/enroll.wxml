@@ -5,19 +5,25 @@
   <text class="enroll-title">报名QG工作室</text>
   <view class="{{isNull[0] ? 'infos-err' : 'infos'}}">
     <text class="">姓名</text>
-    <input data-name="myName" class="inputs {{isFocus[0]? '.focus' : ''}}" id="0" type="text" value="{{myName}}" placeholder="{{isNull[0] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[0]? 'red' : ''}}" bindinput="inputChange" bindblur="validateName" catchtap="toNormal"/>
-    <text style="color : #8366FC;font-size: 16px;" wx:if="{{isFocus[0]}}">*姓名只能由汉字、英文、·组成</text>
+    <input data-name="myName" class="inputs {{isFocus[0]? '.focus' : ''}}" id="0" type="text" value="{{myName}}"
+      placeholder="{{isNull[0] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[0]? 'red' : ''}}"
+      bindinput="inputChange" bindblur="validateName" catchtap="toNormal" />
+    <text style="color : #8366FC;font-size: 16px;" wx:if="{{isFocus[0]}}">*姓名最大长度为20</text>
     <text style="color : red;font-size: 16px;" wx:if="{{!isNameReady}}">*姓名格式有误</text>
   </view>
   <view class="{{isNull[1] ? 'infos-err' : 'infos'}}">
     <text class="">学号</text>
-    <input data-name="myId" class="inputs {{isFocus[1]? '.focus' : ''}}" id="1" type="number" value="{{myId}}" placeholder="{{isNull[1] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[1]? 'red' : ''}}" bindinput="inputChange" bindblur="validateId" catchtap="toNormal"/>
-    <text style="color : #8366FC;font-size: 16px;" wx:if="{{isFocus[1]}}">*学号只能由3120或3220开头，长度为10</text>
-    <text style="color : red;font-size: 16px;" wx:if="{{!isIdReady}}">*学号格式有误</text>
+    <input data-name="myId" class="inputs {{isFocus[1]? '.focus' : ''}}" id="1" type="number" value="{{myId}}"
+      placeholder="{{isNull[1] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[1]? 'red' : ''}}"
+      bindinput="inputChange" bindblur="validateId" catchtap="toNormal" />
+    <text style="color : red;font-size: 16px;" wx:if="{{!isIdReady}}">*学号长度有误</text>
   </view>
   <view class="{{isNull[2] ? 'infos-err' : 'infos'}}">
     <text class="">大一上绩点</text>
-    <input data-name="myGradePoint" class="inputs {{isFocus[2]? '.focus' : ''}}" id="2" type="digit" value="{{myGradePoint}}" placeholder="{{isNull[2] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[2]? 'red' : ''}}" bindinput="inputChange" bindblur="validateGP" catchtap="toNormal"/>
+    <input data-name="myGradePoint" class="inputs {{isFocus[2]? '.focus' : ''}}" id="2" type="digit"
+      value="{{myGradePoint}}" placeholder="{{isNull[2] ? '请填写相关信息' : ''}}"
+      placeholder-style="color : {{isNull[2]? 'red' : ''}}" bindinput="inputChange" bindblur="validateGP"
+      catchtap="toNormal" />
     <text style="color : #8366FC;font-size: 16px;" wx:if="{{isFocus[2]}}">*绩点保留小数后点2位</text>
     <text style="color : red;font-size: 16px;" wx:if="{{!isGradePointReady}}">*绩点格式有误[0.00-5.00]</text>
   </view>
@@ -27,36 +33,44 @@
   </view>
   <view class="infos">
     <text class="">专业班级</text>
-    <picker class="inputs" range="{{majors[collegeIndex]}}" bindchange="majorChange">{{majors[collegeIndex][majorIndex]}}</picker>
+    <picker class="inputs" range="{{majors[collegeIndex]}}" bindchange="majorChange">
+      {{majors[collegeIndex][majorIndex]}}</picker>
   </view>
   <view class="{{isNull[7] ? 'infos-err' : 'infos'}}">
     <text class="">班级(0-50)</text>
-    <input data-name="myClass" class="inputs {{isFocus[7]? '.focus' : ''}}" id="7" type="number" value="{{myQQ}}" placeholder="{{isNull[7] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[7]? 'red' : ''}}" bindinput="inputChange" bindblur="validateClass" catchtap="toNormal"/>
+    <input data-name="myClass" class="inputs {{isFocus[7]? '.focus' : ''}}" id="7" type="number" value="{{myQQ}}"
+      placeholder="{{isNull[7] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[7]? 'red' : ''}}"
+      bindinput="inputChange" bindblur="validateClass" catchtap="toNormal" />
     <text style="color : red;font-size: 16px;" wx:if="{{!isClassReady}}">*班级只能为数字且区间为(0,50)</text>
   </view>
   <view class="{{isNull[3] ? 'infos-err' : 'infos'}}">
     <text class="">电话</text>
-    <input data-name="myPhone" class="inputs {{isFocus[3]? '.focus' : ''}}" id="3" type="number" value="{{myPhone}}" placeholder="{{isNull[3] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[3]? 'red' : ''}}" bindinput="inputChange" bindblur="validatePhone" catchtap="toNormal"/>
-    <text style="color : red;font-size: 16px;" wx:if="{{!isPhoneReady}}">*电话号码格式有误</text>
+    <input data-name="myPhone" class="inputs {{isFocus[3]? '.focus' : ''}}" id="3" type="number" value="{{myPhone}}"
+      placeholder="{{isNull[3] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[3]? 'red' : ''}}"
+      bindinput="inputChange" bindblur="validatePhone" catchtap="toNormal" />
+    <text style="color : red;font-size: 16px;" wx:if="{{!isPhoneReady}}">*电话长度格式有误</text>
   </view>
   <view class="{{isNull[4] ? 'infos-err' : 'infos'}}">
     <text class="">QQ</text>
-    <input data-name="myQQ" class="inputs {{isFocus[4]? '.focus' : ''}}" id="4" type="number" value="{{myQQ}}" placeholder="{{isNull[4] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[4]? 'red' : ''}}" bindinput="inputChange" bindblur="validateQQ" catchtap="toNormal"/>
+    <input data-name="myQQ" class="inputs {{isFocus[4]? '.focus' : ''}}" id="4" type="number" value="{{myQQ}}"
+      placeholder="{{isNull[4] ? '请填写相关信息' : ''}}" placeholder-style="color : {{isNull[4]? 'red' : ''}}"
+      bindinput="inputChange" bindblur="validateQQ" catchtap="toNormal" />
     <text style="color : red;font-size: 16px;" wx:if="{{!isQQReady}}">*QQ格式有误</text>
-  </view>
-  <view class="{{isNull[5] ? 'infos-err' : 'infos'}} reason">
-    <text class="">是否参加其他学生科技团队，社团参与情况说明，是否任职团委</text>
-    <view>
-      <textarea data-name="mySituation" class="{{isFocus[5]? '.focus' : ''}}" id="5" maxlength="150" value="{{mySituation}}" bindinput="inputChange" bindblur="isNull" catchtap="toNormal"/>
-    </view>
   </view>
   <view class="infos">
     <text class="">想加入工作室的方向</text>
     <picker class="inputs" range="{{directions}}" bindchange="directionChange">{{directions[directionIndex]}}</picker>
     <text style="font-size: 16px;color : #8366FC" wx:if="{{directionIndex == 2}}">*设计组的同学面试时请自带铅笔橡皮</text>
   </view>
-  <view class="{{isNull[6] ? 'infos-err' : 'infos'}} reason">
-    <text class="">个人简介(150)</text>
+  <view class="{{isNull[5] ? 'txa-err' : 'txa'}}">
+    <text class="">是否参加其他学生科技团队，社团参与情况说明，是否任职团委（150以内）</text>
+    <view>
+      <textarea data-name="mySituation" class="{{isFocus[5]? '.focus' : ''}}" id="5" maxlength="150"
+        value="{{mySituation}}" bindinput="inputChange" bindblur="isNull" catchtap="toNormal" />
+      </view>
+  </view>
+  <view class="{{isNull[6] ? 'txa-err' : 'txa'}}">
+    <text class="">个人简介(150以内)</text>
     <view>
       <textarea  data-name="myIntroduction" class="{{isFocus[6]? '.focus' : ''}}" id="6" maxlength="150" value="{{myIntroduction}}" bindinput="inputChange"  bindblur="isNull" catchtap="toNormal"/>
     </view>

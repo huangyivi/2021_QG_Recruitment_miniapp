@@ -46,7 +46,7 @@
   color: #B6B6B6;
 }
 .infos textarea {
-  height: 100rpx;
+  height: 200rpx;
   width: 600rpx;
   border-bottom: 1px #B4B4B4 solid;
   font-size: 18px;
@@ -105,10 +105,67 @@
   line-height: 24px;
   color: red;
 }
-
-.reason {
-  height: 200rpx;
+.txa {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 30rpx;
+  padding: 10rpx;
+  width: 80%;
+  height: 600rpx;
 }
+
+.txa text {
+  font-size: 18px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  line-height: 34px;
+  color: #B6B6B6;
+}
+.txa textarea {
+  height: 400rpx;
+  width: 600rpx;
+  border-bottom: 1px #B4B4B4 solid;
+  font-size: 18px;
+  font-family: Source Han Sans CN;
+  font-weight: 500;
+  color: #808080;
+  overflow: hidden;
+}
+
+
+.txa-err {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 30rpx;
+  padding: 10rpx;
+  width: 80%;
+  height: 600rpx;
+
+}
+
+.txa-err text {
+  font-size: 18px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  line-height: 34px;
+  color: red;
+}
+.txa-err textarea {
+  height: 400rpx;
+  width: 600rpx;
+  border-bottom: 2px red solid;
+  font-size: 18px;
+  font-family: Source Han Sans CN;
+  font-weight: 500;
+  color: red;
+  overflow: hidden;
+}
+
+
 
 .focus{
   border-bottom: 2px #8366FC solid !important;

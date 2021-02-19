@@ -1,12 +1,12 @@
-// pages/about/about.js
+// pages/about1/about1.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    currentIndex: 0,
     pageIndex: 0,
-    groupIndex: -1,
     touchY: '',
     moving: false,
     // 关于我们的4个页面
@@ -72,7 +72,7 @@ Page({
       },
       {
         name: "../../static/images/groups_name/android.png",
-        introduction: "我们主攻方向为Androd APP开发。我们致力于开发出满足需求的各种各样的APP，在许多挑战杯等比赛中为项目提供一个交互终端。开发中，我们能根据需要，灵活使用各种主流框架实现各种功能，包括界面显示，动画交互，数据库存取，网络请求等，同时也会在不影响用户体验的同时优化程序的效率，给用户带来更好的使用体验。",
+        introduction: "我们主攻方向为Android APP开发。我们致力于开发出满足需求的各种各样的APP，在许多挑战杯等比赛中为项目提供一个交互终端。开发中，我们能根据需要，灵活使用各种主流框架实现各种功能，包括界面显示，动画交互，数据库存取，网络请求等，同时也会在不影响用户体验的同时优化程序的效率，给用户带来更好的使用体验。",
         logo: "../../static/images/groups_logo/android.png",
         keywords: ['Android', 'Java', 'Kotlin']
       },
@@ -90,59 +90,17 @@ Page({
       },
       {
         name: "../../static/images/groups_name/design.png",
-        introduction: "设计组的主要研究方向是安卓App，小程序和网页界面设计以及交互，同时也着手于3D模型的设计制作。我们旨在培养成员的视觉设计能力与交互设计能力。在各大比赛中，设计组与其他小组协同合作，取得了许多优异成绩，其中智能头盔，智能打印机等产品已经斩获多个奖项。",
+        introduction: "设计组的主要研究方向是安卓App，小程序和网页界面设计以及交互，同时也着手于3D模型的设计制作。我们旨在培养成员的视觉设计能力与交互设计能力。在各大比赛中，设计组与其他小组协同合作，取得了许多优异成绩，其中智能打印机等产品已经斩获多个奖项。",
         logo: "../../static/images/groups_logo/design.png",
         keywords: ['Photoshop', '交互设计', '3D建模']
       }
     ]
   },
-  changePage(e) {
-    this.animate('.pane-header', [{
-      opacity: 0
-    }], 0);
-    this.animate('.pane-text', [{
-      opacity: 0
-    }], 0);
-    this.animate('.control-pane', [{
-        opacity: 1
-      }, {
-        opacity: 0,
-        translateY: 10
-      },
-      {
-        opacity: 1,
-        translateY: 0
-      }
-    ], 1000, () => {
-      this.animate('.pane-header', [{
-        opacity: 0
-      }, {
-        opacity: 1
-      }], 500);
-      this.animate('.pane-text', [{
-        opacity: 0
-      }, {
-        opacity: 1
-      }], 500);
-      this.StopMoving();
-    })
-    let page = e.currentTarget.dataset.page;
-    this.data.pageIndex = page;
-    this.setData({
-      pageIndex: page
-    })
-  },
-  toHome() {
-    wx.navigateTo({
-      url: '../index/index'
-    })
-  },
-  toEnroll() {
-    wx.navigateTo({
-      url: '../enroll/enroll',
-    })
-  },
   onShow() {
+    this.data.currentIndex = 0;
+    this.setData({
+      currentIndex: 0
+    })
     setInterval(() => {
       this.animate('.purple', [{
         translateY: 0
@@ -151,11 +109,8 @@ Page({
       }, {
         translateY: 0
       }], 4000)
-    }, 4000)
-    this.data.moving = false;
-    this.setData({
-      moving: false
-    })
+    }, 4000);
+    this.StopMoving();
     let _this = this;
     setInterval(() => {
       this.animate('.group-keywords', [{
@@ -176,19 +131,8 @@ Page({
         {
           translateY: 0
         }
-      ], 1000, () => {
-        this.data.moving = false;
-        this.setData({
-          moving: false
-        })
-      })
+      ], 1000)
     }, 2000);
-    this.data.pageIndex = 0;
-    this.groupIndex = -1;
-    this.setData({
-      pageIndex: 0,
-      groupIndex: -1
-    })
     this.animate('.control-pane', [{
         opacity: 0,
         translateY: -50
@@ -197,94 +141,120 @@ Page({
         opacity: 1,
         translateY: 0
       },
-    ], 1000)
+    ], 500)
   },
+  changePage(e) {
+    this.animate('.pane-header', [{
+      opacity: 0
+    }], 0);
+    this.animate('.pane-text', [{
+      opacity: 0
+    }], 0);
+    this.animate('.control-pane', [{
+        opacity: 1
+      }, {
+        opacity: 0,
+        translateY: 10
+      },
+      {
+        opacity: 1,
+        translateY: 0
+      }
+    ], 500, () => {
+      let page = e.currentTarget.dataset.page;
+      this.data.pageIndex = page;
+      this.setData({
+        pageIndex: page
+      })
+      this.animate('.pane-header', [{
+        opacity: 0
+      }, {
+        opacity: 1
+      }], 500);
+      this.animate('.pane-text', [{
+        opacity: 0
+      }, {
+        opacity: 1
+      }], 500);
+
+    })
+
+  },
+  toHome() {
+    wx.navigateTo({
+      url: '../index/index'
+    })
+  },
+  toEnroll() {
+    wx.navigateTo({
+      url: '../enroll/enroll',
+    })
+  },
+  Moving() {
+    this.data.moving = true;
+    this.setData({
+      moving: true
+    })
+  },
+  StartMoving() {
+    this.data.moving = true;
+    this.setData({
+      moving: true
+    })
+    setTimeout(() => {
+      this.StopMoving();
+    }, 2500)
+  },
+  StopMoving() {
+    this.data.moving = false;
+    this.setData({
+      moving: false
+    })
+  },
+  stopMove() {
+    return false;
+  },
+  // 切换页面
   touchStart(e) {
     this.setData({
+      touchX: e.changedTouches[0].clientX,
       touchY: e.changedTouches[0].clientY
     })
   },
   touchEnd(e) {
     if (!this.data.moving) {
-      this.Moving();
+      let x = e.changedTouches[0].clientX;
       let y = e.changedTouches[0].clientY;
       let turn = '';
+      let current = this.data.currentIndex;
       if (y - this.data.touchY > 50) { //下滑
         turn = "down";
-        // 重置状态
-        this.animate('.group-items', [{
-          opacity: 0,
-        }], 0)
-        this.animate('.group-logo', [{
-          opacity: 0,
-        }], 0)
-        this.animate('.join-pane', [{
-          opacity: 0,
-          rotateY: 90
-        }], 0)
-        this.animate('.join-pane', [{
-            opacity: 0,
-            rotateY: 90
-          },
-          {
-            opacity: 1,
-            rotateY: 0
-          }
-        ], 1000, () => {
-          this.StopMoving();
-        })
+        this.StartMoving();
       } else if (y - this.data.touchY < -50) { //上滑
         turn = "up";
-        // 重置状态
-        this.animate('.group-items', [{
-          opacity: 0,
-        }], 0)
-        this.animate('.group-logo', [{
-          opacity: 0,
-        }], 0)
-        this.animate('.join-pane', [{
-            opacity: 0,
-            rotateY: 90
-          },
-          {
-            opacity: 1,
-            rotateY: 0
-          }
-        ], 1000, () => {
-          this.StopMoving();
-        })
+        this.StartMoving();
+      } else if (x - this.data.touchX > 50) {
+        turn = "right";
+        this.StartMoving();
+      } else if (x - this.data.touchX < -50) {
+        turn = 'left';
+        this.StartMoving();
       }
-      //根据方向进行操作
+
       if (turn == 'up') {
-        //上滑触发操作
-        let currentGroup = this.data.groupIndex;
-        currentGroup++;
-        if (currentGroup > 7) {
-          this.data.pageIndex = 0;
-          this.groupIndex = -1;
+        if (current == 0) {
+          // 重置状态
+          this.animate('.group-items', [{
+            opacity: 0,
+          }], 0)
+          this.animate('.group-logo', [{
+            opacity: 0,
+          }], 0)
+          current++;
+          this.data.currentIndex = current;
           this.setData({
-            pageIndex: 0,
-            groupIndex: -1
+            currentIndex: current
           })
-          this.animate('.control-pane', [{
-              opacity: 0,
-              translateY: -50
-            },
-            {
-              opacity: 1,
-              translateY: 0
-            },
-          ], 1000, () => {
-            this.StopMoving();
-          })
-        } else {
-          this.data.pageIndex = -1;
-          this.data.groupIndex = currentGroup;
-          this.setData({
-            pageIndex: -1,
-            groupIndex: currentGroup
-          });
-          // 小组页面上浮
           this.animate('.group-pane', [{
               opacity: 0,
               translateY: 100
@@ -312,99 +282,309 @@ Page({
                 translateX: 0,
                 rotate: 15
               },
-            ], 500, () => {
-              this.StopMoving();
-            })
+            ], 500)
           });
-        }
-
-      } else if (turn == 'down') {
-        //下滑触发操作
-        let currentGroup = this.data.groupIndex;
-        currentGroup--;
-        if (currentGroup < 0) {
-          this.data.groupIndex = -1;
-          this.data.pageIndex = 0;
-          this.setData({
-            groupIndex: -1,
-            pageIndex: 0
-          })
-          // 关于我们  页面上浮
-          this.animate('.control-pane', [{
-              opacity: 0,
-              translateY: 50
+        } else if (current == 7) {
+          current++;
+          // 小组页面上浮
+          this.animate('.group-items', [{
+              opacity: 1,
+              translateX: 0
             },
             {
+              opacity: 0,
+              translateX: -100
+            },
+          ], 500)
+          this.animate('.group-logo', [{
+              opacity: 1,
+              translateX: 0,
+              rotate: 15
+            },
+            {
+              opacity: 0,
+              translateX: 100,
+            },
+          ], 500, () => {
+            this.data.currentIndex = current;
+            this.setData({
+              currentIndex: current
+            })
+            this.animate('.join-pane', [{
+                opacity: 0,
+                rotateY: 90
+              },
+              {
+                opacity: 1,
+                rotateY: 0
+              }
+            ], 2000)
+          })
+        } else if (current < 8) {
+          current++;
+          // 小组页面上浮
+          this.animate('.group-items', [{
+              opacity: 1,
+              translateX: 0
+            },
+            {
+              opacity: 0,
+              translateX: -100
+            },
+          ], 500)
+          this.animate('.group-logo', [{
+              opacity: 1,
+              translateX: 0,
+              rotate: 15
+            },
+            {
+              opacity: 0,
+              translateX: 100,
+            },
+          ], 500);
+          this.animate('.group-pane', [{
               opacity: 1,
               translateY: 0
             },
-          ], 1000, () => {
-            this.StopMoving();
-
-          })
-        } else {
-          this.data.pageIndex = -1;
-          this.data.groupIndex = currentGroup;
-          this.setData({
-            pageIndex: -1,
-            groupIndex: currentGroup
-          })
-
-          // 小组页面上浮动画
-          this.animate('.group-pane', [{
+            {
               opacity: 0,
               translateY: -100
             },
+          ], 500, () => {
+            this.data.currentIndex = current;
+            this.setData({
+              currentIndex: current
+            })
+            this.animate('.group-pane', [{
+                opacity: 0,
+                translateY: 100
+              },
+              {
+                opacity: 1,
+                translateY: 0
+              },
+            ], 1000, () => {
+              this.animate('.group-items', [{
+                  opacity: 0,
+                  translateX: -100
+                },
+                {
+                  opacity: 1,
+                  translateX: 0
+                },
+              ], 500)
+              this.animate('.group-logo', [{
+                  opacity: 0,
+                  translateX: 100,
+                },
+                {
+                  opacity: 1,
+                  translateX: 0,
+                  rotate: 15
+                },
+              ], 500)
+            });
+          })
+        } else {
+          this.StopMoving();
+        }
+      } else if (turn == 'down') {
+        if (current == 8) {
+          current--;
+          this.animate('.join-pane', [{
+              opacity: 1,
+              rotateY: 0
+            },
+            {
+              opacity: 0,
+              rotateY: 90
+            },
+          ], 500, () => {
+            this.data.currentIndex = current;
+            this.setData({
+              currentIndex: current
+            })
+            this.animate('.group-pane', [{
+                opacity: 0,
+                translateY: 100
+              },
+              {
+                opacity: 1,
+                translateY: 0
+              },
+            ], 1000, () => {
+              this.animate('.group-items', [{
+                  opacity: 0,
+                  translateX: -100
+                },
+                {
+                  opacity: 1,
+                  translateX: 0
+                },
+              ], 500)
+              this.animate('.group-logo', [{
+                  opacity: 0,
+                  translateX: 100,
+                },
+                {
+                  opacity: 1,
+                  translateX: 0,
+                  rotate: 15
+                },
+              ], 500)
+            });
+          })
+
+        } else if (current > 0) {
+          current--;
+          // 小组页面上浮
+          this.animate('.group-items', [{
+              opacity: 1,
+              translateX: 0
+            },
+            {
+              opacity: 0,
+              translateX: -100
+            },
+          ], 500)
+          this.animate('.group-logo', [{
+              opacity: 1,
+              translateX: 0,
+              rotate: 15
+            },
+            {
+              opacity: 0,
+              translateX: 100,
+            },
+          ], 500);
+          this.animate('.group-pane', [{
+              opacity: 1,
+              translateY: 0
+            },
+            {
+              opacity: 0,
+              translateY: 100
+            },
+          ], 500, () => {
+
+            this.data.currentIndex = current;
+            this.setData({
+              currentIndex: current
+            })
+
+            this.animate('.group-pane', [{
+                opacity: 0,
+                translateY: -100
+              },
+              {
+                opacity: 1,
+                translateY: 0
+              },
+            ], 1000, () => {
+              this.animate('.group-items', [{
+                  opacity: 0,
+                  translateX: -100
+                },
+                {
+                  opacity: 1,
+                  translateX: 0
+                },
+              ], 500)
+              this.animate('.group-logo', [{
+                  opacity: 0,
+                  translateX: 100,
+                },
+                {
+                  opacity: 1,
+                  translateX: 0,
+                  rotate: 15
+                },
+              ], 500)
+            });
+          })
+
+        } else {
+          this.StopMoving();
+        }
+      } else if (turn == 'right') {
+        let page = this.data.pageIndex;
+        if (page > 0) {
+          page--;
+          this.animate('.pane-header', [{
+            opacity: 0
+          }], 0);
+          this.animate('.pane-text', [{
+            opacity: 0
+          }], 0);
+          this.animate('.control-pane', [{
+              opacity: 1
+            }, {
+              opacity: 0,
+              translateY: 10
+            },
             {
               opacity: 1,
               translateY: 0
-
-            },
+            }
           ], 500, () => {
-            this.animate('.group-items', [{
-                opacity: 0,
-                translateX: -100
-              },
-              {
-                opacity: 1,
-                translateX: 0
-              },
-            ], 500)
-            this.animate('.group-logo', [{
-                opacity: 0,
-                translateX: 100,
-              },
-              {
-                opacity: 1,
-                translateX: 0,
-                rotate: 10
-              },
-            ], 500, () => {
-              this.StopMoving();
+            this.data.pageIndex = page;
+            this.setData({
+              pageIndex: page
             })
-          });
+            this.animate('.pane-header', [{
+              opacity: 0
+            }, {
+              opacity: 1
+            }], 500);
+            this.animate('.pane-text', [{
+              opacity: 0
+            }, {
+              opacity: 1
+            }], 500);
 
-          // 重置状态
-          // this.animate('.group-items', [{
-          //   opacity: 0,
-          // }], 0)
-          // this.animate('.group-logo', [{
-          //   opacity: 0,
-          // }], 0)
+          })
+        }
+      } else if (turn == 'left') {
+        let page = this.data.pageIndex;
+        if (page < 3) {
+          page++;
+          this.animate('.pane-header', [{
+            opacity: 0
+          }], 0);
+          this.animate('.pane-text', [{
+            opacity: 0
+          }], 0);
+          this.animate('.control-pane', [{
+              opacity: 1
+            }, {
+              opacity: 0,
+              translateY: 10
+            },
+            {
+              opacity: 1,
+              translateY: 0
+            }
+          ], 500, () => {
+            this.data.pageIndex = page;
+            this.setData({
+              pageIndex: page
+            })
+            this.animate('.pane-header', [{
+              opacity: 0
+            }, {
+              opacity: 1
+            }], 500);
+            this.animate('.pane-text', [{
+              opacity: 0
+            }, {
+              opacity: 1
+            }], 500);
+
+          })
         }
       }
     }
+
   },
-  Moving() {
-    this.data.moving = true;
-    this.setData({
-      moving: true
-    })
-  },
-  StopMoving() {
-    this.data.moving = false;
-    this.setData({
-      moving: false
-    })
-  }
+  // 团队介绍左右滑事件
 })

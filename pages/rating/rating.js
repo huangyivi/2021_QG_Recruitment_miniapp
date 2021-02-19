@@ -87,6 +87,19 @@ Page({
             })
 
             wx.hideLoading();
+          }else if(res.data.code == -1){
+            wx.showModal({
+              title: "请先登录！",
+              content: "*点击确定返回授权页面",
+              showCancel: false,
+              success(res){
+                if(res.confirm){
+                  wx.redirectTo({
+                    url: '../login/login',
+                  })
+                }
+              }
+            })
           }else{
             wx.showModal({
               title : res.data.msg,
@@ -143,8 +156,20 @@ Page({
               title : "评价成功！"
             })
             wx.hideLoading();
-          }
-          else{
+          }else if(res.data.code == -1){
+            wx.showModal({
+              title: "请先登录！",
+              content: "*点击确定返回授权页面",
+              showCancel: false,
+              success(res){
+                if(res.confirm){
+                  wx.redirectTo({
+                    url: '../login/login',
+                  })
+                }
+              }
+            })
+          }else{
             wx.showModal({
               showCancel : false,
               title : "评价失败！"
