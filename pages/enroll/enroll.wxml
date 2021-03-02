@@ -1,4 +1,5 @@
 <view class="enroll-container">
+  <image class="background" src="../../static/images/BG.png" mode="aspectFill"></image>
   <view class="rtn">
     <mp-icon icon="back" color="black" size="{{18}}" catchtap="back"></mp-icon>
   </view>

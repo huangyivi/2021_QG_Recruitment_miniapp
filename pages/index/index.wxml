@@ -1,4 +1,5 @@
 <view class="container">
+  <image class="background" src="../../static/images/BG.png" mode="aspectFill"></image>
   <view class="img-container">
     <image class="QGStudio" src="../../static/images/QGStudio.png" mode="widthFix"></image>
     <text class="QG-intro" decode="{{true}}">&emsp;大学生“小平科技创新团队”</text>

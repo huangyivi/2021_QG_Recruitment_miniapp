@@ -90,6 +90,11 @@ Page({
   },
   onPullDownRefresh(){
     this.autoLogin();
+  },
+  justWatch(){
+    wx.redirectTo({
+      url: '../index/index',
+    })
   }
 
 })

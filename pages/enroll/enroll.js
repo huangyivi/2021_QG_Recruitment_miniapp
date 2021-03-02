@@ -9,8 +9,8 @@ Page({
     // 用于控制按钮
     isFilled: false,
 
-    colleges: ['计算机学院'],
-    majors: [['计算机科学与技术', '软件工程', '信息安全', '网络工程']],
+    colleges: ['正在获取中'],
+    majors: [['正在获取中']],
     directions: ['前端组', '后台组', '设计组', '图形组', '移动组', '数据挖掘组', '嵌入式组'],
 
     // 学生信息
@@ -39,6 +39,24 @@ Page({
   },
   onLoad(){
     let _this = this;
+    console.log(app.globalData.openId);
+    if (!app.globalData.openId || app.globalData.openId == null || app.globalData.openId == ''){
+      wx.showModal({
+        showCancel: false,
+        title: '未登录',
+        content: '*请先授权信息哦~',
+        confirmText: '前往登录',
+        confirmColor: '#8366FC',
+        success(res){
+          if(res.confirm){
+            wx.redirectTo({
+              url: '../login/login',
+            })
+          }
+        }
+      })
+      return;
+    }
     wx.request({
       url: 'https://recruit.qgailab.com/recruit/academy',
       method: 'GET',
@@ -263,6 +281,24 @@ Page({
     wx.showLoading({
       title: '提交中',
     })
+    if (!app.globalData.openId){
+      wx.hideLoading();
+      wx.showModal({
+        showCancel: false,
+        title: '未登录',
+        content: '*请先授权信息哦~',
+        confirmText: '前往登录',
+        confirmColor: '#8366FC',
+        success(res){
+          if(res.confirm){
+            wx.redirectTo({
+              url: '../login/login',
+            })
+          }
+        }
+      })
+      return;
+    }
     if (this.data.isFilled) {
       let groupId = this.data.directionIndex;
       groupId++;
@@ -316,8 +352,8 @@ Page({
           wx.hideLoading();
           wx.showModal({
             showCancel: false,
-            title: '提交失败！',
-            content: '请联系管理员反馈情况~'
+            title: '网络开小差了',
+            content: '*请联系管理员反馈情况~'
           })
         }
       })

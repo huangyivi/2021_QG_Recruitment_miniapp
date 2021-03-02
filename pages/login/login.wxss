@@ -42,3 +42,22 @@ page{
 .no-nickname {
   color: #aaa;
 }
+
+
+.background{
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: -1;
+}
+
+
+.login-btn{
+  height: 200rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}

@@ -107,6 +107,13 @@ Page({
             })
             wx.hideLoading();
           }
+        },fail(res){
+          wx.hideLoading();
+          wx.showModal({
+            showCancel: false,
+            title: '网络开小差了',
+            content: '*请联系管理员反馈情况~'
+          })
         }
       })
     }
@@ -176,6 +183,13 @@ Page({
             })
             wx.hideLoading()
           }
+        },fail(res){
+          wx.hideLoading();
+          wx.showModal({
+            showCancel: false,
+            title: '网络开小差了',
+            content: '*请联系管理员反馈情况~'
+          })
         }
       })
     }

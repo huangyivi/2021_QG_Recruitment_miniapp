@@ -1,12 +1,18 @@
 <view class="login-container">
+  <image class="background" src="../../static/images/BG.png" mode="aspectFill"></image>
   <view class="userinfo">
     <view class="userinfo" wx:if="{{hasUserInfo}}">
       <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text></view>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </view>
     <view class="userinfo" wx:else>
       <view class="no-avatar"></view>
       <text class="no-nickname">用户</text>
     </view>
   </view>
-  <button type="primary" open-type="getUserInfo" bindgetuserinfo="login" bindtap="subscribe">授权用户信息</button>
+  <view class="login-btn">
+    <button type="primary" open-type="getUserInfo" bindgetuserinfo="login" bindtap="subscribe">授权用户信息</button>
+    <button catchtap="justWatch">我先看看</button>
+  </view>
+
 </view>
