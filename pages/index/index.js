@@ -57,5 +57,13 @@ Page({
       title: '面试还未开始哦~',
       content: '先看看我们的团队介绍吧！'
     })
-  }
+  },
+  onShareAppMessage(){
+    return {
+      title: "QG AI Lab",
+      desc: "小平科技创新团队",
+      path: "/pages/login/login",
+      imageUrl: "/static/images/QGStudio.png"
+    }
+  },
 })

@@ -8,6 +8,10 @@
       <view>{{student.name}}</view>
     </view>
     <view class="more-line">
+      <text>绩点</text>
+      <view>{{student.gradePoint}}</view>
+    </view>
+    <view class="more-line">
       <text>学院专业</text>
       <view>{{student.profession}}</view>
     </view>

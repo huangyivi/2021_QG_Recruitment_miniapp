@@ -586,5 +586,12 @@ Page({
     }
 
   },
-  // 团队介绍左右滑事件
+  onShareAppMessage(){
+    return {
+      title: "QG AI Lab",
+      desc: "小平科技创新团队",
+      path: "/pages/login/login",
+      imageUrl: "/static/images/QGStudio.png"
+    }
+  },
 })

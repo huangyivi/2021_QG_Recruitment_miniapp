@@ -16,6 +16,8 @@ Page({
     direction: '',
     // 导师编号
     group: 0,
+    // 是否已设置编号
+    isGroupSetted: false,
     // 面试地点
     classroom: '',
     time: '',
@@ -35,62 +37,11 @@ Page({
     this.getInterviewQueue();
     this.getTeacherQueue();
 
-    let _this = this;
-    wx.connectSocket({
-      url: app.globalData.socket+ 'tutor/' + app.globalData.openId,
-      success(){
-        // console.log('连接成功');
-      },
-      fail(){
-        // console.log('连接失败');
-      }
-    })
-    wx.onSocketMessage((res) => {
-      // console.log('有新消息拉');
-      let data = JSON.parse(res.data);
-      // console.log(data);
-      if(data.msgType == 1){
-        // 面试队伍更新
-        // let _queue = _this.data.interviewer;
-        // for(let i=0;i<_queue.length;i++){
-        //   if(_queue[i].id == res.id){
-        //     _queue.splice(i,1);
-        //     _this.data.queue = _queue;
-        //     _this.setData({
-        //       queue : _queue
-        //     })
-        //     break;
-        //   }
-        // }
-        this.getInterviewQueue();
-      }else if(data.msgType == 2){
-        // 某导师的学生更新
-        // let _queue = _this.data.teacherQueue;
-        // for(let j=0;j<_queue.length;j++){
-        //   if(_queue[j].num == res.num){
-        //     let student = res.student;
-        //     _queue[j].id = student.id;
-        //     _queue[j].name = student.name;
-        //     _queue[j].openId = student.openId;
-        //     _this.data.teacherQueue[j] = _queue[j];
-        //     _this.setData({
-        //       "teacherQueue[j]" : _queue[j]
-        //     })
-        //   }
-        //   // 如果是本队的学生更新，更新本地暂存名单
-        //   // if(_queue[j].num == _this.data.group){
-        //   //   let student = res.data.student;
-        //   //   app.globalData.current.id = student.id;
-        //   //   app.globalData.current.name = student.name;
-        //   //   app.globalData.current.openId = student.openId;
-        //   // }
-        // }
-        this.getTeacherQueue();
-      }
-    })
+    // 链接socket
+    this.handleSocket();
   },
   // 下拉刷新
-  onPullDownRefresh(){
+  onPullDownRefresh() {
     this.getInterviewQueue();
     this.getTeacherQueue();
   },
@@ -167,28 +118,29 @@ Page({
             time: _this.formatTime(data.time),
             queue: data.num
           })
-        } else if(res.data.code = -1){
-          
+        } else if (res.data.code = -1) {
+
           wx.showModal({
-              title: "请先登录！",
-              content: "*点击确定返回授权页面",
-              showCancel: false,
-              success(res){
-                if(res.confirm){
-                  wx.redirectTo({
-                    url: '../login/login',
-                  })
-                }
-              },fail(res){
-                wx.hideLoading();
-                wx.showModal({
-                  showCancel: false,
-                  title: '网络开小差了',
-                  content: '*请联系管理员反馈情况~'
+            title: "请先登录！",
+            content: "*点击确定返回授权页面",
+            showCancel: false,
+            success(res) {
+              if (res.confirm) {
+                wx.redirectTo({
+                  url: '../login/login',
                 })
               }
-            })
-        }else {
+            },
+            fail(res) {
+              wx.hideLoading();
+              wx.showModal({
+                showCancel: false,
+                title: '网络开小差了',
+                content: '*请联系管理员反馈情况~'
+              })
+            }
+          })
+        } else {
           wx.showToast({
             title: '网络连接失败！',
             icon: 'error',
@@ -196,7 +148,8 @@ Page({
           })
         }
 
-      },fail(res){
+      },
+      fail(res) {
         wx.hideLoading();
         wx.showModal({
           showCancel: false,
@@ -218,25 +171,32 @@ Page({
       success(res) {
         if (res.data.code == 1) {
           let num = res.data.data.num;
+          if (num != 0) {
+            _this.data.isGroupSetted = true;
+            _this.setData({
+              isGroupSetted: true
+            })
+          }
           _this.data.group = num;
           _this.setData({
             group: num
           })
-        }else if(res.data.code == -1){
+        } else if (res.data.code == -1) {
           wx.showModal({
-              title: "请先登录！",
-              content: "*点击确定返回授权页面",
-              showCancel: false,
-              success(res){
-                if(res.confirm){
-                  wx.redirectTo({
-                    url: '../login/login',
-                  })
-                }
+            title: "请先登录！",
+            content: "*点击确定返回授权页面",
+            showCancel: false,
+            success(res) {
+              if (res.confirm) {
+                wx.redirectTo({
+                  url: '../login/login',
+                })
               }
-            })
+            }
+          })
         }
-      },fail(res){
+      },
+      fail(res) {
         wx.hideLoading();
         wx.showModal({
           showCancel: false,
@@ -263,31 +223,31 @@ Page({
           _this.setData({
             interviewer: queue
           })
-        }else if(res.data.code == -1){
+        } else if (res.data.code == -1) {
           wx.showModal({
-              title: "请先登录！",
-              content: "*点击确定返回授权页面",
-              showCancel: false,
-              success(res){
-                if(res.confirm){
-                  wx.redirectTo({
-                    url: '../login/login',
-                  })
-                }
+            title: "请先登录！",
+            content: "*点击确定返回授权页面",
+            showCancel: false,
+            success(res) {
+              if (res.confirm) {
+                wx.redirectTo({
+                  url: '../login/login',
+                })
               }
-            })
+            }
+          })
         }
       },
-      fail(res){
+      fail(res) {
         wx.hideLoading();
         wx.showModal({
           showCancel: false,
           title: '获取面试队列失败，请重试',
-          success(res){
+          success(res) {
             wx.redirectTo({
               url: '../calling/calling',
             })
-          }  
+          }
         })
       }
     })
@@ -315,21 +275,22 @@ Page({
               isStart: false
             })
           }
-        }else if(res.data.code == -1){
+        } else if (res.data.code == -1) {
           wx.showModal({
-              title: "请先登录！",
-              content: "*点击确定返回授权页面",
-              showCancel: false,
-              success(res){
-                if(res.confirm){
-                  wx.redirectTo({
-                    url: '../login/login',
-                  })
-                }
+            title: "请先登录！",
+            content: "*点击确定返回授权页面",
+            showCancel: false,
+            success(res) {
+              if (res.confirm) {
+                wx.redirectTo({
+                  url: '../login/login',
+                })
               }
-            })
+            }
+          })
         }
-      },fail(res){
+      },
+      fail(res) {
         wx.hideLoading();
         wx.showModal({
           showCancel: false,
@@ -362,31 +323,31 @@ Page({
           _this.setData({
             teacherQueue: data
           })
-        }else if(res.data.code == -1){
+        } else if (res.data.code == -1) {
           wx.showModal({
-              title: "请先登录！",
-              content: "*点击确定返回授权页面",
-              showCancel: false,
-              success(res){
-                if(res.confirm){
-                  wx.redirectTo({
-                    url: '../login/login',
-                  })
-                }
+            title: "请先登录！",
+            content: "*点击确定返回授权页面",
+            showCancel: false,
+            success(res) {
+              if (res.confirm) {
+                wx.redirectTo({
+                  url: '../login/login',
+                })
               }
-            })
+            }
+          })
         }
       },
-      fail(res){
+      fail(res) {
         wx.hideLoading();
         wx.showModal({
           showCancel: false,
           title: '获取导师队列失败，请重试',
-          success(res){
+          success(res) {
             wx.redirectTo({
               url: '../calling/calling',
             })
-          }  
+          }
         })
       }
     })
@@ -428,21 +389,22 @@ Page({
                 wx.navigateTo({
                   url: '../more/more',
                 })
-              }else if(res.data.code == -1){
+              } else if (res.data.code == -1) {
                 wx.showModal({
-              title: "请先登录！",
-              content: "*点击确定返回授权页面",
-              showCancel: false,
-              success(res){
-                if(res.confirm){
-                  wx.redirectTo({
-                    url: '../login/login',
-                  })
-                }
+                  title: "请先登录！",
+                  content: "*点击确定返回授权页面",
+                  showCancel: false,
+                  success(res) {
+                    if (res.confirm) {
+                      wx.redirectTo({
+                        url: '../login/login',
+                      })
+                    }
+                  }
+                })
               }
-            })
-              }
-            },fail(res){
+            },
+            fail(res) {
               wx.hideLoading();
               wx.showModal({
                 showCancel: false,
@@ -465,27 +427,28 @@ Page({
                 wx.navigateTo({
                   url: '../rating/rating',
                 })
-              }else if(res.data.code == -1){
+              } else if (res.data.code == -1) {
                 wx.showModal({
-              title: "请先登录！",
-              content: "*点击确定返回授权页面",
-              showCancel: false,
-              success(res){
-                if(res.confirm){
-                  wx.redirectTo({
-                    url: '../login/login',
-                  })
-                }
-              }
-            })
-              }else{
+                  title: "请先登录！",
+                  content: "*点击确定返回授权页面",
+                  showCancel: false,
+                  success(res) {
+                    if (res.confirm) {
+                      wx.redirectTo({
+                        url: '../login/login',
+                      })
+                    }
+                  }
+                })
+              } else {
                 wx.showModal({
                   showCancel: false,
                   title: '叫号失败',
                   content: res.data.msg
                 })
               }
-            },fail(res){
+            },
+            fail(res) {
               wx.hideLoading();
               wx.showModal({
                 showCancel: false,
@@ -495,7 +458,7 @@ Page({
             }
 
           })
-          
+
         }
       }
     })
@@ -579,7 +542,57 @@ Page({
   // 修改房间信息
   setRoom() {
     let _this = this;
+    wx.showLoading({
+      title: '正在修改',
+    })
     if (this.data.isReady) {
+      // 修改导师组序号
+      if (!_this.data.isGroupSetted) {
+        wx.request({
+          url: app.globalData.domain + `queue/tutor/bind/${_this.data.group}`,
+          header: {
+            token: wx.getStorageSync('token')
+          },
+          method: 'POST',
+          success(res) {
+            if (res.data.code == 1) {
+              wx.showToast({
+                title: '修改成功！',
+                duration: 1000
+              })
+              _this.getRoomInfo();
+              _this.toSituation();
+            } else if (res.data.code == -1) {
+              wx.showModal({
+                title: "请先登录！",
+                content: "*点击确定返回授权页面",
+                showCancel: false,
+                success(res) {
+                  if (res.confirm) {
+                    wx.redirectTo({
+                      url: '../login/login',
+                    })
+                  }
+                }
+              })
+            } else {
+              wx.showModal({
+                content: '当前导师编号已被占用，请重新选择',
+                showCancel: false
+              })
+            }
+          },
+          fail(res) {
+            wx.hideLoading();
+            wx.showModal({
+              showCancel: false,
+              title: '网络开小差了',
+              content: '*请联系管理员反馈情况~'
+            })
+          }
+        });
+      }
+      // 设置房间的教室和时间
       wx.request({
         url: app.globalData.domain + 'queue/tutor/setRoom',
         header: {
@@ -591,6 +604,7 @@ Page({
           signInTime: _this.data.timeStamp
         },
         success(res) {
+          wx.hideLoading();
           if (res.data.code == 1) {
             let data = res.data.data;
             _this.data.direction = data.group;
@@ -603,64 +617,28 @@ Page({
               timeStamp: data.signInTime,
               time: _this.formatTime(data.signInTime),
             });
-          }else if(res.data.code == -1){
-            wx.showModal({
-              title: "请先登录！",
-              content: "*点击确定返回授权页面",
-              showCancel: false,
-              success(res){
-                if(res.confirm){
-                  wx.redirectTo({
-                    url: '../login/login',
-                  })
-                }
-              }
-            })
-          }
-        },fail(res){
-          wx.hideLoading();
-          wx.showModal({
-            showCancel: false,
-            title: '网络开小差了',
-            content: '*请联系管理员反馈情况~'
-          })
-        }
-      });
-      // 绑定导师组序号
-      wx.request({
-        url: app.globalData.domain + `queue/tutor/bind/${_this.data.group}`,
-        header: {
-          token: wx.getStorageSync('token')
-        },
-        method: 'POST',
-        success(res) {
-          if (res.data.code == 1) {
             wx.showToast({
               title: '修改成功！',
               duration: 1000
             })
             _this.getRoomInfo();
             _this.toSituation();
-          }else if(res.data.code == -1){
+          } else if (res.data.code == -1) {
             wx.showModal({
               title: "请先登录！",
               content: "*点击确定返回授权页面",
               showCancel: false,
-              success(res){
-                if(res.confirm){
+              success(res) {
+                if (res.confirm) {
                   wx.redirectTo({
                     url: '../login/login',
                   })
                 }
               }
             })
-          } else {
-            wx.showModal({
-              content: '当前导师编号已被占用，请重新选择',
-              showCancel: false
-            })
           }
-        },fail(res){
+        },
+        fail(res) {
           wx.hideLoading();
           wx.showModal({
             showCancel: false,
@@ -669,6 +647,8 @@ Page({
           })
         }
       });
+      
+
     }
 
 
@@ -690,13 +670,13 @@ Page({
             _this.setData({
               isStart: true
             })
-          }else if(res.data.code == -1){
+          } else if (res.data.code == -1) {
             wx.showModal({
               title: "请先登录！",
               content: "*点击确定返回授权页面",
               showCancel: false,
-              success(res){
-                if(res.confirm){
+              success(res) {
+                if (res.confirm) {
                   wx.redirectTo({
                     url: '../login/login',
                   })
@@ -704,7 +684,8 @@ Page({
               }
             })
           }
-        },fail(res){
+        },
+        fail(res) {
           wx.hideLoading();
           wx.showModal({
             showCancel: false,
@@ -715,8 +696,34 @@ Page({
       })
     }
   },
-  back(){
+  back() {
     wx.navigateBack();
+  },
+
+  // socket连接，用于监控队列状态、
+  handleSocket() {
+    let Socket = wx.connectSocket({
+      url: app.globalData.socket + 'tutor/' + app.globalData.openId,
+      success() {
+        console.log('连接成功');
+      },
+      fail() {
+        console.log('连接失败');
+      }
+    })
+
+    Socket.onMessage(res=>{
+      // console.log('有新消息拉');
+      let data = JSON.parse(res.data);
+      // console.log(data);
+      if (data.msgType == 1) {
+        // 面试队伍更新
+        this.getInterviewQueue();
+      } else if (data.msgType == 2) {
+        // 某导师的学生更新
+        this.getTeacherQueue();
+      }
+    })
   }
 
 })

@@ -61,3 +61,7 @@ page{
   justify-content: space-between;
   align-items: center;
 }
+
+.access-btn{
+  background-color: #8366FC !important;
+}

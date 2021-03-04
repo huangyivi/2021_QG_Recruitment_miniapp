@@ -91,6 +91,14 @@ Page({
   onPullDownRefresh(){
     this.autoLogin();
   },
+  onShareAppMessage(){
+    return {
+      title: "QG AI Lab",
+      desc: "小平科技创新团队",
+      path: "/pages/login/login",
+      imageUrl: "/static/images/QGStudio.png"
+    }
+  },
   justWatch(){
     wx.redirectTo({
       url: '../index/index',

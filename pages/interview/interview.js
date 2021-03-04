@@ -22,9 +22,10 @@ Page({
     interviewTime: '',
     //面试导师
     interviewTeacher: '',
+
   },
-  //前面排队的人
-  FrontPeople: 0,
+      //前面排队的人
+      FrontPeople: 0,
 
   /**
    * 生命周期函数--监听页面加载
@@ -81,7 +82,7 @@ Page({
         let num = this.dealCode(res.data.data.id);
         this.data.interviewAddress = res.data.data.place;
         this.data.interviewNum = num;
-        this.data.FrontPeople = res.data.data.frontCount;
+        this.FrontPeople = res.data.data.frontCount;
         this.setData({
           interviewAddress : res.data.data.place,
           interviewNum : num,
@@ -177,7 +178,6 @@ Page({
     //转换为对应的状态
     let mystatus = this.getTrueStatus(status);
 
-    let textInfo = this.getBtnStatus(mystatus);
     if (mystatus == 4) {
       //面试结束,弹出弹框
       wx.showModal({
@@ -198,19 +198,20 @@ Page({
       });
     }
 
-    this.data.FrontPeople = frontCount; //前面排队人数
+    this.FrontPeople = frontCount; //前面排队人数
     this.data.status = mystatus;
     this.data.interviewNum = this.dealCode(id);
     this.data.interviewTeacher = tutor;
     this.data.interviewTime = formatDate(time);
     this.data.interviewAddress = place;
+    let textInfo = this.getBtnStatus(mystatus);
     this.setData({
       status: mystatus,
       interviewAddress: place, //面试地点
       interviewNum: this.dealCode(id),  //编号
       interviewTeacher: tutor,  //面试导师
       interviewTime: formatDate(time), //签到时间
-      textInfo
+      textInfo,
     });
   },
 
@@ -229,27 +230,19 @@ Page({
   //处理websocket请求
   handleSocket(openId) {
     //建立websocket连接
-    wx.connectSocket({
+
+    let Socket = wx.connectSocket({
       url: app.globalData.socket+ 'student/' + openId,
       success: () => {
-        // console.log('连接成功');
+        console.log('连接成功');
       }
     });
 
-    //发送信息
-    wx.onSocketOpen(() => {
-      /* wx.sendSocketMessage({
-        data: '你好',
-      }); */
-    });
-
-    //接收信息
-    wx.onSocketMessage((res) => {
-      // console.log(res);
+    Socket.onMessage((res)=>{
       if (res.msgType == 2) {
         //类型为2时，只更新前面排队人数
         const { frontCount } = JSON.parse(res.data);
-        this.data.FrontPeople = frontCount;
+        this.FrontPeople = frontCount;
         this.data.textInfo = this.getBtnStatus(2);
         this.setData({
           textInfo: this.getBtnStatus(2),
@@ -261,12 +254,7 @@ Page({
         // console.log(JSON.parse(res.data));
         this.updateStatus(JSON.parse(res.data));
       }
-    });
-
-    //连接失败
-    wx.onSocketError(() => {
-      // console.log('连接失败');
-    });
+    })
   },
 
   //根据状态获取按钮相应的状态

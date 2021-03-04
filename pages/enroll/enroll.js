@@ -39,7 +39,7 @@ Page({
   },
   onLoad(){
     let _this = this;
-    console.log(app.globalData.openId);
+    // console.log(app.globalData.openId);
     if (!app.globalData.openId || app.globalData.openId == null || app.globalData.openId == ''){
       wx.showModal({
         showCancel: false,
@@ -396,5 +396,13 @@ Page({
         'isFilled': true
       })
     }
-  }
+  },
+  onShareAppMessage(){
+    return {
+      title: "QG AI Lab",
+      desc: "小平科技创新团队",
+      path: "/pages/login/login",
+      imageUrl: "/static/images/QGStudio.png"
+    }
+  },
 })

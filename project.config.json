@@ -106,6 +106,12 @@
           "pathName": "pages/about2/about2",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/more/more",
+          "pathName": "pages/more/more",
+          "query": "",
+          "scene": null
         }
       ]
     }
