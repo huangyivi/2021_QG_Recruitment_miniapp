@@ -1,0 +1,96 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/calling/calling",
+          "pathName": "pages/calling/calling",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/rating/rating",
+          "pathName": "pages/rating/rating",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/enroll/enroll",
+          "pathName": "pages/enroll/enroll",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/interview/interview",
+          "pathName": "pages/interview/interview",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/index/index",
+          "pathName": "pages/index/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/card/card",
+          "pathName": "pages/card/card",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/about/about",
+          "pathName": "pages/about/about",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/more/more",
+          "pathName": "pages/more/more",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/about/about",
+          "pathName": "pages/about/about",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/about/honor/honor",
+          "pathName": "pages/about/honor/honor",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/about/student/student",
+          "pathName": "pages/about/student/student",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/about/project/project",
+          "pathName": "pages/about/project/project",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/about/educator/educator",
+          "pathName": "pages/about/educator/educator",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

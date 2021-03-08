@@ -64,9 +64,9 @@
     <text style="font-size: 16px;color : #8366FC" wx:if="{{directionIndex == 2}}">*设计组的同学面试时请自带铅笔橡皮</text>
   </view>
   <view class="{{isNull[5] ? 'txa-err' : 'txa'}}">
-    <text class="">是否参加其他学生科技团队，社团参与情况说明，是否任职团委（150以内）</text>
+    <text class="">是否参加其他学生科技团队，社团参与情况说明，是否任职团委（30以内）</text>
     <view>
-      <textarea data-name="mySituation" class="{{isFocus[5]? '.focus' : ''}}" id="5" maxlength="150"
+      <textarea data-name="mySituation" class="{{isFocus[5]? '.focus' : ''}}" id="5" maxlength="30"
         value="{{mySituation}}" bindinput="inputChange" bindblur="isNull" catchtap="toNormal" />
       </view>
   </view>

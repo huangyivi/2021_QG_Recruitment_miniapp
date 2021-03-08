@@ -80,7 +80,7 @@
       </view>
       <view class="set-line">
         <text>教室</text>
-        <input data-name="classroom" type="text" value="{{classroom}}" placeholder="教三-322" placeholder-style="color: #cccccc" bindinput="changeInput"/>
+        <input data-name="classroom" type="text" value="{{classroom}}" placeholder="例：教三-322" placeholder-style="color: #cccccc" bindinput="changeInput"/>
       </view>
       <view class="set-line">
         <text>签到时间</text>
@@ -90,7 +90,7 @@
         <text>温馨提醒：日期若为个位数，前面要加“0”哦</text>
       </view>
       <view class="edit">
-        <button class="{{isReady?'edit-btn-ready' : 'edit-btn'}}" catchtap="setRoom">确认修改</button>
+        <button class="{{isReady?'edit-btn-ready' : 'edit-btn'}}" catchtap="{{isReady? 'setRoom': ''}}">确认修改</button>
       </view>
       <view class="pane-bottom">到底了哦~</view>
     </view>

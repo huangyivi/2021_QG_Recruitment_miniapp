@@ -1,0 +1,47 @@
+<view>
+  <image class="background" src="/static/images/BG.png" mode="aspectFill"></image>
+  <image class="rtn-btn" src="/static/images/icon/back.png" catchtap="back"></image>
+  <image class="title-bg" src="/static/images/icon/QG_bg.png"></image>
+  <view class="about-header">指导老师</view>
+  
+  <view class="edu-container">
+    <view class="edu-header">
+      <image class="edu-avatar" mode="widthFix" src="/static/images/educator/xie.png"></image>
+      <view class="edu-info">  
+        <text class="edu-name">谢光强博士</text>
+        <text class="edu-pro">计算机学院副院长</text>
+        <text class="edu-pro">教授</text>
+        <text class="edu-pro">博士生导师</text>
+      </view>
+    </view>
+
+    <view class="edu-box">
+      <text class="edu-title">简介</text>
+      <text class="edu-awards" wx:for="{{x_about}}" wx:for-item="item">{{item}}</text>
+    </view>
+    <view class="edu-box">
+      <text class="edu-title">学术兼职</text>
+      <text class="edu-awards" wx:for="{{x_academic}}" wx:for-item="item">{{item}}</text>
+    </view>
+  </view>
+  <view class="hrhrhr"></view>
+  <view class="edu-container">
+    <view class="edu-header">
+      <image class="edu-avatar" mode="widthFix" src="/static/images/educator/li.png"></image>
+      <view class="edu-info">  
+        <text class="edu-name">李杨博士</text>
+        <text class="edu-pro">教授</text>
+        <text class="edu-pro">硕士生导师</text>
+      </view>
+    </view>
+
+    <view class="edu-box">
+      <text class="edu-title">简介</text>
+      <text class="edu-awards" wx:for="{{li_about}}" wx:for-item="item">{{item}}</text>
+    </view>
+    <view class="edu-box">
+      <text class="edu-title">学术兼职</text>
+      <text class="edu-awards" wx:for="{{li_academic}}" wx:for-item="item">{{item}}</text>
+    </view>
+  </view>
+</view>

@@ -1,4 +1,4 @@
-/* pages/about/about.wxss */
+
 page {
   width: 100%;
   height: 100%;
@@ -14,7 +14,7 @@ page {
 }
 
 .rtn-btn {
-  position: fixed;
+  position: absolute;
   top: 180rpx;
   left: 100rpx;
   width: 40rpx;
@@ -43,36 +43,47 @@ page {
 }
 
 
-.list-item {
+.about-intro {
+  position: relative;
+  top: -100rpx;
+  width: 100%;
+  height: 300rpx;
   box-sizing: border-box;
   padding: 0 50rpx;
-  width: 100%;
-  height: 150rpx;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  border-bottom: 1px solid #F4F5FB;
 
-  font-size: 20px;
+
+  font-size: 16px;
   font-family: Source Han Sans CN;
   font-weight: 400;
   line-height: 20px;
   color: #808080;
 }
 
-.item-info{
-  width: 50%;
-  height: 100%;
+
+.list-item {
+  box-sizing: border-box;
+  padding: 50rpx;
+  width: 100%;
+  min-height: 150rpx;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  border-bottom: 1px solid #F4F5FB;
+
+  font-size: 35rpx;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  line-height: 20px;
+  color: #808080;
 }
 
-.item-info text{
+
+.list-item text {
   margin-left: 20rpx;
 }
 
 .about-icon {
   width: 40rpx;
   height: 40rpx;
+  flex-shrink:0
 }
