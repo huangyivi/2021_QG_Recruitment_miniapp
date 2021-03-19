@@ -239,9 +239,10 @@ Page({
     });
 
     Socket.onMessage((res)=>{
-      if (res.msgType == 2) {
+      let data = JSON.parse(res.data)
+      if (data.msgType == 2) {
         //类型为2时，只更新前面排队人数
-        const { frontCount } = JSON.parse(res.data);
+        const { frontCount } = data;
         this.FrontPeople = frontCount;
         this.data.textInfo = this.getBtnStatus(2);
         this.setData({
@@ -251,8 +252,7 @@ Page({
 
       } else {
         //类型为1时，更新状态
-        // console.log(JSON.parse(res.data));
-        this.updateStatus(JSON.parse(res.data));
+        this.updateStatus(data);
       }
     })
   },

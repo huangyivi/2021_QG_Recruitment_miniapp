@@ -27,7 +27,7 @@ const getDom = (dom) => {
 }
 
 const formatDate = (date) => {
-  if(!date) date = new Date();
+  if(!date) return null;
   //date是传入的时间
   let d = new Date(date);
 

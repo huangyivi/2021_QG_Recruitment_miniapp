@@ -7,19 +7,15 @@
     <text decode="{{true}}">&emsp;&emsp;团队成立至今，获得各类科技竞赛240余项，其中国家级奖项33项，省级奖项130项，承担大学生创新创业训练计划(国家级)、广东省大学生科技创新培育专项资金(重点)等各类科技项目50项，申请专利和软件著作权等成果40余项。</text>
   </view>
   <view class="about-list">
-    <view class="list-item">
+    <view class="list-item"  wx:for="{{projects}}" wx:for-item="item" data-detail="{{item}}" catchtap="toDetail">
       <view class="item-info">
         <image class="about-icon" src="/static/images/icon/project.png"></image>
-        <text>优秀项目</text>
+        <text>{{item.name}}</text>
       </view>
       <image class="about-icon" src="/static/images/icon/next.png"></image>
     </view>
-    <view class="list-item">
-      <view class="item-info">
-        <image class="about-icon" src="/static/images/icon/project.png"></image>
-        <text decode="{{true}}">更多奖项详情请访问QG官网\n>>>qgailab.com</text>
-      </view>
-      <image class="about-icon" src="/static/images/icon/next.png"></image>
+    <view class="list-more">
+        <text decode="{{true}}">更多奖项详情请访问QG官网\n&emsp;&emsp;http://qgailab.com</text>
     </view>
   </view>
 </view>

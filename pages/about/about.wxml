@@ -7,7 +7,7 @@
     <navigator url="./team/team" class="list-item">
       <view class="item-info">
         <image class="about-icon" src="/static/images/icon/QG_logo.png"></image>
-        <text>QG工作室简介</text>
+        <text class="breathe">QG工作室简介</text>
       </view>
       <image class="about-icon" src="/static/images/icon/link.png"></image>
     </navigator>

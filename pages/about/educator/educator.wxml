@@ -23,8 +23,8 @@
       <text class="edu-title">学术兼职</text>
       <text class="edu-awards" wx:for="{{x_academic}}" wx:for-item="item">{{item}}</text>
     </view>
+    <view class="hrhrhr"></view>
   </view>
-  <view class="hrhrhr"></view>
   <view class="edu-container">
     <view class="edu-header">
       <image class="edu-avatar" mode="widthFix" src="/static/images/educator/li.png"></image>

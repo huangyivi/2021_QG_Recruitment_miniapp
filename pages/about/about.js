@@ -11,5 +11,14 @@ Page({
     wx.redirectTo({
       url: '/pages/index/index',
     })
+  },
+  onShow(){
+    // let animation = wx.createAnimation({
+    //   delay: 0,
+    //   duration: 1000,
+    //   timingFunction: "ease"
+    // })
+    // this.animation = animation;
+
   }
 })

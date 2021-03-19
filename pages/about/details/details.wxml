@@ -1,0 +1,11 @@
+<view>
+  <image class="background" src="/static/images/BG.png" mode="aspectFill"></image>
+  <image class="rtn-btn" src="/static/images/icon/back.png" catchtap="back"></image>
+  <image class="title-bg" src="/static/images/icon/QG_bg.png"></image>
+  <view class="about-header">详情页面</view>
+  <view class="detail-container">
+    <image class="detail-img" src="{{detail.img}}" mode="widthFix" catchtap="preview"></image>
+    <text class="detail-name">{{detail.name}}</text>
+    <text lang="en" class="detail-intro" decode="{{true}}">&emsp;&emsp;{{detail.intro}}</text>
+  </view>
+</view>

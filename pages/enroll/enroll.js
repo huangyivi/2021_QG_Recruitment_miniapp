@@ -38,6 +38,18 @@ Page({
     isClassReady: true
   },
   onLoad(){
+    wx.showModal({
+      showCancel: false,
+      title: '报名已结束',
+      content: '*感谢您的参与~',
+      confirmText: '返回主页',
+      confirmColor: '#8366FC',
+      success(){
+        wx.redirectTo({
+          url: '../index/index',
+        })
+      }
+    })
     let _this = this;
     // console.log(app.globalData.openId);
     if (!app.globalData.openId || app.globalData.openId == null || app.globalData.openId == ''){

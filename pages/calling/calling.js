@@ -423,10 +423,17 @@ Page({
             success(res) {
               // console.log(res);
               if (res.data.code == 1) {
-                app.globalData.current = res.data.data;
-                wx.navigateTo({
-                  url: '../rating/rating',
+                wx.showModal({
+                  showCancel: false,
+                  content: res.data.msg,
+                  success() {
+                    app.globalData.current = res.data.data;
+                    wx.navigateTo({
+                      url: '../rating/rating',
+                    })
+                  }
                 })
+
               } else if (res.data.code == -1) {
                 wx.showModal({
                   title: "请先登录！",
@@ -647,7 +654,7 @@ Page({
           })
         }
       });
-      
+
 
     }
 
@@ -712,7 +719,7 @@ Page({
       }
     })
 
-    Socket.onMessage(res=>{
+    Socket.onMessage(res => {
       // console.log('有新消息拉');
       let data = JSON.parse(res.data);
       // console.log(data);

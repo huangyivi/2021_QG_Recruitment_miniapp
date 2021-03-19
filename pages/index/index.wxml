@@ -5,7 +5,7 @@
     <text class="QG-intro" decode="{{true}}">&emsp;大学生“小平科技创新团队”</text>
   </view>
   <view class="btn-container">
-    <navigator url="/pages/enroll/enroll" class="btn open" >
+    <navigator wx:if="{{false}}" url="/pages/enroll/enroll" class="btn open" >
      <image mode="widthFix" src="../../static/images/index_btn/enroll.png"></image>
       <view>报名</view>
     </navigator>

@@ -15,11 +15,10 @@ page {
 
 .rtn-btn {
   position: absolute;
-
   top: 180rpx;
-  left: 100rpx;
-  width: 40rpx;
-  height: 40rpx;
+  left: 50rpx;
+  width: 60rpx;
+  height: 60rpx;
 }
 
 .title-bg {
@@ -55,7 +54,7 @@ page {
   font-size: 16px;
   font-family: Source Han Sans CN;
   font-weight: 400;
-  line-height: 20px;
+  line-height: 24px;
   color: #808080;
 }
 
@@ -94,4 +93,24 @@ page {
   width: 40rpx;
   height: 40rpx;
   flex-shrink:0
+}
+
+
+.list-more{
+  position: absolute;
+  bottom: 20rpx;
+  box-sizing: border-box;
+  padding: 0 50rpx;
+  width: 100%;
+  height: 150rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #F4F5FB;
+
+  font-size: 30rpx;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  line-height: 20px;
+  color: #808080;
 }

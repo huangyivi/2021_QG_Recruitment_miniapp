@@ -2,28 +2,18 @@
   <view class="central-part">
     <view class="btn-pane">
       <view class="to-home">
-        <view class="home-icon" catchtap="toHome"></view>
+        <image src="/static/images/icon/back.png" class="home-icon" catchtap="toHome"></image>
       </view>
     </view>
     <swiper class="page-container" vertical="true" current="{{currentIndex}}" duration="1000" easing-function="easeOutCubic" bindchange="changePage">
       <swiper-item catchtouchmove="stopMove">
         <view class="control-pane">
           <view class="pane-header">
-            <image class="header-image" src="{{about[pageIndex].header}}" mode="heightFix">
+            <image class="header-image" src="/static/images/about/aboutUs.png" mode="heightFix">
             </image>
           </view>
           <view class="pane-content">
-            <text class="pane-text" decode="{{true}}">&emsp;&emsp;{{about[pageIndex].introduction}}</text>
-            <view class="select-pane">
-              <image data-page="0" catchtap="changePage" class="select-icon" src="{{about[pageIndex].btn[0]}}">
-              </image>
-              <image data-page="1" catchtap="changePage" class="select-icon" src="{{about[pageIndex].btn[1]}}">
-              </image>
-              <image data-page="2" catchtap="changePage" class="select-icon" src="{{about[pageIndex].btn[2]}}">
-              </image>
-              <image data-page="3" catchtap="changePage" class="select-icon" src="{{about[pageIndex].btn[3]}}">
-              </image>
-            </view>
+            <text class="pane-text" decode="{{true}}">&emsp;&emsp;QG科技创新团队由团队负责人计算机学院副院长谢光强教授于2005年创建并任第一指导老师，团队在人工智能、嵌入式智能系统等多个方向上展开研究和多领域的融合创新应用，取得了丰硕的成果，被授予以邓小平同志命名的大学生“小平科技创新团队”称号。</text>
           </view>
         </view>
       </swiper-item>

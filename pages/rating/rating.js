@@ -69,45 +69,51 @@ Page({
         },
         method: "POST",
         success(res) {
+          wx.hideLoading();
           if (res.data.code == 1) {
-            app.globalData.current = res.data.data;
-            _this.data.isCommented = false;
-            _this.data.grade = '';
-            _this.data.ps = '';
-            _this.data.isFocus = false;
-            _this.data.isReady = false;
-            _this.data.student = res.data.data;
-            _this.setData({
-              isCommented: false,
-              grade: '',
-              ps: '',
-              isFocus: false,
-              isReady: false,
-              student: res.data.data
+            wx.showModal({
+              showCancel: false,
+              content: res.data.msg,
+              success() {
+                app.globalData.current = res.data.data;
+                _this.data.isCommented = false;
+                _this.data.grade = '';
+                _this.data.ps = '';
+                _this.data.isFocus = false;
+                _this.data.isReady = false;
+                _this.data.student = res.data.data;
+                _this.setData({
+                  isCommented: false,
+                  grade: '',
+                  ps: '',
+                  isFocus: false,
+                  isReady: false,
+                  student: res.data.data
+                })
+              }
             })
-
-            wx.hideLoading();
-          }else if(res.data.code == -1){
+            
+          } else if (res.data.code == -1) {
             wx.showModal({
               title: "请先登录！",
               content: "*点击确定返回授权页面",
               showCancel: false,
-              success(res){
-                if(res.confirm){
+              success(res) {
+                if (res.confirm) {
                   wx.redirectTo({
                     url: '../login/login',
                   })
                 }
               }
             })
-          }else{
+          } else {
             wx.showModal({
-              title : res.data.msg,
-              showCancel : true
+              title: res.data.msg,
+              showCancel: true
             })
-            wx.hideLoading();
           }
-        },fail(res){
+        },
+        fail(res) {
           wx.hideLoading();
           wx.showModal({
             showCancel: false,
@@ -159,31 +165,32 @@ Page({
               isCommented: true
             });
             wx.showModal({
-              showCancel : false,
-              title : "评价成功！"
+              showCancel: false,
+              title: "评价成功！"
             })
             wx.hideLoading();
-          }else if(res.data.code == -1){
+          } else if (res.data.code == -1) {
             wx.showModal({
               title: "请先登录！",
               content: "*点击确定返回授权页面",
               showCancel: false,
-              success(res){
-                if(res.confirm){
+              success(res) {
+                if (res.confirm) {
                   wx.redirectTo({
                     url: '../login/login',
                   })
                 }
               }
             })
-          }else{
+          } else {
             wx.showModal({
-              showCancel : false,
-              title : "评价失败！"
+              showCancel: false,
+              title: "评价失败！"
             })
             wx.hideLoading()
           }
-        },fail(res){
+        },
+        fail(res) {
           wx.hideLoading();
           wx.showModal({
             showCancel: false,

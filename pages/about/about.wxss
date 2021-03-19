@@ -14,11 +14,11 @@ page {
 }
 
 .rtn-btn {
-  position: fixed;
+  position: absolute;
   top: 180rpx;
-  left: 100rpx;
-  width: 40rpx;
-  height: 40rpx;
+  left: 70rpx;
+  width: 50rpx;
+  height: 50rpx;
 }
 
 .title-bg {
@@ -53,7 +53,7 @@ page {
   align-items: center;
   border-bottom: 1px solid #F4F5FB;
 
-  font-size: 20px;
+  font-size: 18px;
   font-family: Source Han Sans CN;
   font-weight: 400;
   line-height: 20px;
@@ -61,7 +61,7 @@ page {
 }
 
 .item-info{
-  width: 50%;
+  width: 80%;
   height: 100%;
   display: flex;
   justify-content: flex-start;

@@ -11,9 +11,8 @@
         <image class="about-icon" src="/static/images/icon/honor.png"></image>
         <text>{{item}}</text>
     </view>
-    <view class="list-item">
-        <image class="about-icon" src="/static/images/icon/honor.png"></image>
-        <text decode="{{true}}">更多奖项详情请访问QG官网\n>>>qgailab.com</text>
+    <view class="list-more">
+        <text decode="{{true}}">更多奖项详情请访问QG官网\n&emsp;&emsp;http://qgailab.com</text>
     </view>
   </view>
 </view>

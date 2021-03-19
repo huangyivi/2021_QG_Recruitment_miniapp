@@ -6,10 +6,40 @@
   <view class="about-intro">
     <text decode="{{true}}">&emsp;&emsp;团队为大湾区建设培养和输送了大批品学兼优的高水平创新型人才200多名。团队大部分学生进入了华为、阿里巴巴、腾讯、京东、百度、字节跳动、网易游戏等知名        IT 公司工作，成为了核心技术骨干，获得用人单位的肯定和好评。另有不少毕业生或“推免”留校深造或到海内外高校继续攻读硕（博）士，或在毕业后进行了创业，获得了初步的成功。</text>
   </view>
-  <view class="about-list">
-    <view class="list-item" wx:for="{{students}}" wx:for-item="item">
-        <image class="about-icon" src="/static/images/icon/student.png"></image>
-        <text>{{item}}</text>
+  <view class="titles">
+    <image class="title-logo" src="/static/images/icon/QG_logo.png"></image>
+    <text>优秀毕业生</text>
+  </view>
+  <view class="edu-container" wx:for="{{gra_stu}}" wx:for-item="item">
+    <view class="edu-header">
+      <image class="edu-avatar" mode="widthFix" src="{{item.img}}"></image>
+      <view class="edu-info">  
+        <text class="edu-name">{{item.name}}</text>
+        <text class="edu-pro">{{item.pro}}</text>
+      </view>
     </view>
+    <view class="edu-box">
+      <text class="edu-title">简介</text>
+      <text class="edu-awards" decode="{{true}}">{{item.intro}}</text>
+    </view>
+    <view class="hrhrhr"></view>
+  </view>
+  <view class="titles">
+    <image class="title-logo" src="/static/images/icon/QG_logo.png"></image>
+    <text>优秀在校生</text>
+  </view>
+  <view class="edu-container" wx:for="{{now_stu}}" wx:for-item="item">
+    <view class="edu-header">
+      <image class="edu-avatar" mode="widthFix" src="{{item.img}}"></image>
+      <view class="edu-info">  
+        <text class="edu-name">{{item.name}}</text>
+        <text class="edu-pro">{{item.pro}}</text>
+      </view>
+    </view>
+    <view class="edu-box">
+      <text class="edu-title">简介</text>
+      <text class="edu-awards" decode="{{true}}">{{item.intro}}</text>
+    </view>
+    <view class="hrhrhr"></view>
   </view>
 </view>

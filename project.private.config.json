@@ -89,6 +89,12 @@
           "pathName": "pages/about/educator/educator",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/about/team/team",
+          "pathName": "pages/about/team/team",
+          "query": "",
+          "scene": null
         }
       ]
     }

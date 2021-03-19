@@ -12,6 +12,7 @@
     "pages/about/honor/honor",
     "pages/about/project/project",
     "pages/about/student/student",
+    "pages/about/details/details",
     "pages/about/about"
   ],
   "window":{

@@ -10,7 +10,10 @@ App({
     code: null,
     current: {},
     watchStudent: {},
-    openId: null
+    openId: null,
+
+    // 详情页面介绍
+    detail: {}
   },
   onLaunch() {
     let _this = this;
